@@ -8,7 +8,7 @@ class Filer{
 
     fun filero() : MutableList<String> {
 
-        val inputStream: InputStream = File("C:\\Users\\Thiago\\IdeaProjects\\art1\\src\\main\\resources\\bdstruct\\bdzito.txt").inputStream()
+        val inputStream: InputStream = File("\resources\bdstruct\bdzito.txt").inputStream()
         val lineList = mutableListOf<String>()
 
         inputStream.bufferedReader().useLines { lines -> lines.forEach { lineList.add(it)} }
