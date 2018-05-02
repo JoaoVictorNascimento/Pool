@@ -86,7 +86,77 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
     }
 }
 
+    //ira retornar o resultado em um Array de string
+    //so pode retornar uma coluna do banco de dados por vez
+    //nada de "select * from coisa"
+    //e sim "select coisinha from coisa"
+    fun executeMySQLQuery(command : String) : Array<String> {
 
+        var stmt: Statement? = null
+        var resultset: ResultSet? = null
+        var result = emptyArray<String>()
+
+        try {
+            stmt = this.conn!!.createStatement()
+
+            stmt!!.execute("USE " + database)
+
+            resultset = stmt!!.executeQuery(command)
+
+            if (stmt.execute(command)) {
+                resultset = stmt.resultSet
+            }
+
+            //como navegar em um ResultSet caso necessario pode-se voltar
+            //para o inicio com ResultSet.first()
+            //tentei implementar para varias colunas de uma unica vez, mas nao rolou
+            //funciona apenas para uma unica coluna por vez
+            var i = 1
+            var rsmd : ResultSetMetaData = resultset.getMetaData() //para pegar o numero de colunas do resultado
+            while(i <= rsmd.columnCount){
+                while (resultset!!.next()) {
+                    result = result.plus(resultset.getNString(i))
+                }
+                resultset.first()
+                i++
+            }
+
+        } catch (ex: SQLException) {
+            // handle any errors
+            ex.printStackTrace()
+        } finally {
+            // release resources
+
+            if (resultset != null) {
+
+                try {
+                    resultset.close()
+                } catch (sqlEx: SQLException) {
+                }
+
+                resultset = null
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException) {
+                }
+
+                stmt = null
+            }
+
+            if (conn != null) {
+                try {
+                    conn!!.close()
+                } catch (sqlEx: SQLException) {
+                }
+
+                conn = null
+            }
+
+        }
+        return result
+    }
 
 
 }
