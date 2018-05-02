@@ -2,6 +2,7 @@ package db
 
 
 import filerino.Filer
+import model.Person
 import java.io.File
 import java.io.InputStream
 import java.sql.*
@@ -157,6 +158,83 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
         }
         return result
     }
+    
+    
+    
+    
+    fun selectPerson() :MutableList<Person> {
+
+    var listinha :MutableList<Person> = mutableListOf()
+
+    try{
+        this.stat = this.conn!!.createStatement()
+        this.res = this.stat!!.executeQuery("SELECT * FROM pessoa;")
+
+
+        if(stat!!.execute("SELECT * FROM pessoa;")){
+            res= stat!!.resultSet
+        }
+        while (res!!.next()){
+
+            //println(res!!.getString("iDPessoa"))
+            //println(res!!.getString("Nome"))
+            //println(res!!.getString("RG"))
+            //println(res!!.getString("CPF"))
+
+            val idP :Int = res!!.getInt("iDPessoa")
+            val rg :Int = res!!.getInt("RG")
+            val cpf :Int = res!!.getInt("CPF")
+            val name :String = res!!.getString("Nome")
+
+            val pe = Person(idP,name,rg,cpf)
+
+            listinha.add(pe)
+            println(listinha.size)
+
+
+        }
+
+    }catch (ex: SQLException){
+        ex.printStackTrace()
+    }finally {
+
+        if (res!=null){
+            try {
+                res!!.close()
+
+            }catch (sqlEx: SQLException){
+
+            }
+            res = null
+        }
+
+
+        if (stat!=null){
+            try {
+                stat!!.close()
+
+            }catch (sqlEx: SQLException){
+
+            }
+            stat = null
+        }
+
+        if (conn!=null){
+            try {
+                conn!!.close()
+
+            }catch (sqlEx: SQLException){
+
+            }
+            conn = null
+        }
+
+    }
+
+    return listinha
+
+
+}
 
 
 }
