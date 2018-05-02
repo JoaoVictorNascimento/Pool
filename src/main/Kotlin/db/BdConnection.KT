@@ -99,7 +99,7 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
         try {
             stmt = this.conn!!.createStatement()
 
-            stmt!!.execute("USE " + database)
+            //stmt!!.execute("USE " + database)
 
             resultset = stmt!!.executeQuery(command)
 
