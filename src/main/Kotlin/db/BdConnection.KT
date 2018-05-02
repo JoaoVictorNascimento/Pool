@@ -115,7 +115,7 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
             var rsmd : ResultSetMetaData = resultset.getMetaData() //para pegar o numero de colunas do resultado
             while(i <= rsmd.columnCount){
                 while (resultset!!.next()) {
-                    result = result.plus(resultset.getNString(i))
+                    result = result.plus(resultset.getString(i))
                 }
                 resultset.first()
                 i++
