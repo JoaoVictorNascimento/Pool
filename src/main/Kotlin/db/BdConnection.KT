@@ -235,6 +235,19 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
 
 
 }
+    
+    
+    fun insertPessoa(person :Person){
+
+            val statement = conn!!.prepareStatement("INSERT INTO pessoa" +
+                    "(idPessoa, Nome, RG, CPF) VALUES (?,?,?,?) ")
+            statement.setInt(1, person.getIdPessoa())
+            statement.setString(2, person.getNome())
+            statement.setInt(3, person.getRg())
+            statement.setInt(4, person.getCpf())
+            statement.executeUpdate()
+
+    }
 
 
 }
