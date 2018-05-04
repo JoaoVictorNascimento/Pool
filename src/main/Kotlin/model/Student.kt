@@ -17,7 +17,7 @@ class Student{
     }
 
 
-    fun getIdAula():Int{
+    fun getIdAluno():Int{
         return idAluno
     }
 
@@ -31,7 +31,7 @@ class Student{
 
 
     fun printero(){
-        println("IAula: "+ this.idAluno+ "PidP: "+this.pessoaIdPessoa +"AidAula:"+ this.aulaIdAula )
+        println("IAluno: "+ this.idAluno+ "PidP: "+this.pessoaIdPessoa +"AidAula:"+ this.aulaIdAula )
     }
 
 }
