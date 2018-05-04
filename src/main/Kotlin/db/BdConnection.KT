@@ -3,8 +3,7 @@ package db
 
 import filerino.Filer
 import model.Person
-import java.io.File
-import java.io.InputStream
+import model.Student
 import java.sql.*
 
 
@@ -248,6 +247,173 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
             statement.executeUpdate()
 
     }
+    
+    
+     fun selectStudent():MutableList<Student>{
+
+        var listinha :MutableList<Student> = mutableListOf()
+
+        try{
+            this.stat = this.conn!!.createStatement()
+            this.res = this.stat!!.executeQuery("SELECT * FROM aluno;")
+
+
+            if(stat!!.execute("SELECT * FROM aluno;")){
+                res= stat!!.resultSet
+            }
+            while (res!!.next()){
+
+                val idA :Int = res!!.getInt("idAluno")
+                val peP :Int = res!!.getInt("Pessoa_idPessoa")
+                val aulIdA :Int = res!!.getInt("Aula_idAula")
+
+                val pe = Student(idA,peP,aulIdA)
+                listinha.add(pe)
+                //println(listinha.size)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+
+        }
+
+        return listinha
+
+    }
+
+
+
+
+    fun insertStudent(student :Student){
+
+        val statement = conn!!.prepareStatement("INSERT INTO aluno" +
+                "(idAluno, Pessoa_idPessoa, Aula_idAula) VALUES (?,?,?) ")
+        statement.setInt(1, student.getIdAluno())
+        statement.setInt(2, student.getPessoaIdPessoa())
+        statement.setInt(3, student.getAulaIdAula())
+        statement.executeUpdate()
+
+    }
+
+
+
+
+
+
+
+
+    fun selectClass():MutableList<model.Class>{
+
+        var listinha :MutableList<model.Class> = mutableListOf()
+
+        try{
+            this.stat = this.conn!!.createStatement()
+            this.res = this.stat!!.executeQuery("SELECT * FROM aula;")
+
+
+            if(stat!!.execute("SELECT * FROM aula;")){
+                res= stat!!.resultSet
+            }
+            while (res!!.next()){
+
+                val idA :Int = res!!.getInt("idAula")
+                val horario :String = res!!.getString("Horario")
+                val dia :String= res!!.getString("Dia")
+
+                val pe = model.Class(idA,horario,dia)
+                listinha.add(pe)
+                //println(listinha.size)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+
+        }
+
+        return listinha
+
+    }
+
+
+
+    fun insertClasss(klass :model.Class){
+
+        val statement = conn!!.prepareStatement("INSERT INTO aula" +
+                "(idAula, Horario, Dia) VALUES (?,?,?) ")
+        statement.setInt(1, klass.getIdAula())
+        statement.setString(2, klass.getDia())
+        statement.setString(3, klass.getHorario())
+        statement.executeUpdate()
+
+    }
+
+
 
 
 }
