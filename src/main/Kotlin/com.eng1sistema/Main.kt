@@ -1,7 +1,14 @@
-import db.DbConn
-import model.Person
-import model.Student
+package com.eng1sistema
 
+import com.eng1sistema.db.DbConn
+import com.eng1sistema.model.Person
+import com.eng1sistema.model.Student
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class DemoApplication
 
 fun main(args: Array<String>) {
 
@@ -10,8 +17,8 @@ fun main(args: Array<String>) {
    // epa.selectNameFromP()
 
    epa.supercon()
-   var lisss :MutableList<Person> = epa.selectPerson()
-   val test :Person = lisss[0]
+  // var lisss :MutableList<Person> = epa.selectPerson()
+   //val test :Person = lisss[0]
    //println(test.printero())
 
     //val ptes = Person(100,"testerson",9742,321) create person
@@ -25,8 +32,7 @@ fun main(args: Array<String>) {
 
     //epa.supercon()
     //epa.insertStudent(testStudent) insert student
-
-
+    runApplication<DemoApplication>(*args)
 
 }
 

@@ -1,4 +1,4 @@
-package model
+package com.eng1sistema.model
 
 
 
