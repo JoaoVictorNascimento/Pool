@@ -1,9 +1,9 @@
-package db
+package com.eng1sistema.db
 
 
-import filerino.Filer
-import model.Person
-import model.Student
+import com.eng1sistema.filerino.Filer
+import com.eng1sistema.model.Person
+import com.eng1sistema.model.Student
 import java.sql.*
 
 
@@ -335,9 +335,9 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
 
 
 
-    fun selectClass():MutableList<model.Class>{
+    fun selectClass():MutableList<com.eng1sistema.model.Class>{
 
-        var listinha :MutableList<model.Class> = mutableListOf()
+        var listinha :MutableList<com.eng1sistema.model.Class> = mutableListOf()
 
         try{
             this.stat = this.conn!!.createStatement()
@@ -353,7 +353,7 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
                 val horario :String = res!!.getString("Horario")
                 val dia :String= res!!.getString("Dia")
 
-                val pe = model.Class(idA,horario,dia)
+                val pe = com.eng1sistema.model.Class(idA,horario,dia)
                 listinha.add(pe)
                 //println(listinha.size)
 
@@ -402,7 +402,7 @@ fun selectNameFromP(){ // Select nome da tabela pessoas
 
 
 
-    fun insertClasss(klass :model.Class){
+    fun insertClasss(klass :com.eng1sistema.model.Class){
 
         val statement = conn!!.prepareStatement("INSERT INTO aula" +
                 "(idAula, Horario, Dia) VALUES (?,?,?) ")
