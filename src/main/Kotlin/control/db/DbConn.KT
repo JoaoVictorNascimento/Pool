@@ -55,12 +55,12 @@ fun selectPerson() :MutableList<Person> {
         while (res!!.next()){
 
 
-            val idP :Int = res!!.getInt("iDPessoa")
+            //val idP :Int = res!!.getInt("iDPessoa")
             val rg :Int = res!!.getInt("RG")
             val cpf :Int = res!!.getInt("CPF")
             val name :String = res!!.getString("Nome")
 
-            val pe = Person(idP,name,rg,cpf)
+            val pe = Person(name,rg,cpf)
 
             listinha.add(pe)
             println(listinha.size)
@@ -113,11 +113,11 @@ fun selectPerson() :MutableList<Person> {
     fun insertPessoa(person :Person){
 
             val statement = conn!!.prepareStatement("INSERT INTO pessoa" +
-                    "(idPessoa, Nome, RG, CPF) VALUES (?,?,?,?) ")
-            statement.setInt(1, person.getIdPessoa())
-            statement.setString(2, person.getNome())
-            statement.setInt(3, person.getRg())
-            statement.setInt(4, person.getCpf())
+                    "(Nome, RG, CPF) VALUES (?,?,?) ")
+        
+            statement.setString(1, person.getNome())
+            statement.setInt(2, person.getRg())
+            statement.setInt(3, person.getCpf())
             statement.executeUpdate()
 
     }
