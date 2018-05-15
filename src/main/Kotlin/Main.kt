@@ -4,7 +4,7 @@ import model.Person
 
 fun main(args: Array<String>) {
 
-    if(args.size > 1){ //command line mode
+    if(args.size > 1){ //command line mode to insert person
 
         //process inputs
         val epa = DbConn()
@@ -17,16 +17,22 @@ fun main(args: Array<String>) {
 
     }    
     
-    else{ //execute with gui
+    else{ //command line to list persons
     
         val epa = DbConn() //Serie de testes da conexao do banco
         //epa.supercon()
-       // epa.selectNameFromP()
+        // epa.selectNameFromP()
 
-       epa.supercon()
-       var lisss :MutableList<Person> = epa.selectPerson()
-       val test :Person = lisss[0]
-        println(test.printero())
+        epa.supercon()
+
+        //pega lista de alunos
+        var lisss: MutableList<Person> = epa.selectPerson()
+
+
+        //listar alunos
+        for(alunos in lisss)
+
+            alunos.printero()
 
         //val ptes = Person(100,"testerson",9742,321) create person
         //val auTest = model.Class(1,"3:40","Segunda") create class
