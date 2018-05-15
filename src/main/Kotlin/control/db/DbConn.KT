@@ -63,7 +63,7 @@ fun selectPerson() :MutableList<Person> {
             val pe = Person(name,rg,cpf)
 
             listinha.add(pe)
-            println(listinha.size)
+            //println(listinha.size)
 
 
         }
