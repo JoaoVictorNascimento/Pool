@@ -1,40 +1,10 @@
 package model
 
 
-class Person {
-
-    //private var idPessoa: Int
-    private var nome: String
-    private var rg: Int
-    private var cpf: Int
-
-    constructor(nome: String, rg: Int, cpf: Int) {
-        //this.idPessoa = idPessoa
-        this.nome = nome
-        this.rg = rg
-        this.cpf = cpf
-    }
-
-   // fun getIdPessoa() :Int{
-   //         return idPessoa
-    //}
-
-    fun getNome() :String{
-        return nome
-    }
-
-    fun getRg() :Int{
-        return rg
-    }
-
-    fun getCpf() :Int{
-        return cpf
-    }
+data class Person(val idPessoa: Int = 0, val name: String,val rg: Int,val cpf: Int) {
 
     fun printero(){
-        println("Name:" +this.nome+" RG:" +this.rg +" CPF:"+this.cpf)
+        println("Name:" +this.name+" Id:" +this.idPessoa +" RG:" +this.rg +" CPF:"+this.cpf)
     }
 
 }
-
-
