@@ -1,6 +1,8 @@
 import control.db.DbConn
 import model.Person
-
+import model.PersonDao
+import spark.kotlin.*
+import spark.Spark.*
 
 fun main(args: Array<String>) {
 
@@ -45,6 +47,13 @@ fun main(args: Array<String>) {
 
         //epa.supercon()
         //epa.insertStudent(testStudent) insert student
+        //var pt = Person(name="paos",rg =12,cpf = 42)
+    //println(pt.name + pt.idPessoa)
+
+    //var p = PersonDao()
+    //p.findById(13).printero()
+   // p.save("jack2",2418,4152)
+    //get("/hello") { req, res -> "Hello World" }
 
     }
 
