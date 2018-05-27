@@ -55,15 +55,15 @@ fun selectPerson() :MutableList<Person> {
         while (res!!.next()){
 
 
-            //val idP :Int = res!!.getInt("iDPessoa")
+            val idP :Int = res!!.getInt("iDPessoa")
             val rg :Int = res!!.getInt("RG")
             val cpf :Int = res!!.getInt("CPF")
             val name :String = res!!.getString("Nome")
 
-            val pe = Person(name,rg,cpf)
+            val pe = Person(idP,name,rg,cpf)
 
             listinha.add(pe)
-            //println(listinha.size)
+            println(listinha.size)
 
 
         }
@@ -110,16 +110,77 @@ fun selectPerson() :MutableList<Person> {
 }
 
 
-    fun insertPessoa(person :Person){
+    fun insertPerson(person :Person){
 
             val statement = conn!!.prepareStatement("INSERT INTO pessoa" +
                     "(Nome, RG, CPF) VALUES (?,?,?) ")
-        
-            statement.setString(1, person.getNome())
-            statement.setInt(2, person.getRg())
-            statement.setInt(3, person.getCpf())
+            statement.setString(1, person.name)
+            statement.setInt(2, person.rg)
+            statement.setInt(3, person.cpf)
             statement.executeUpdate()
 
+    }
+
+
+    fun selectPersonById(id: Int):MutableList<Person>{
+
+        var listinha :MutableList<Person> = mutableListOf()
+
+        try{
+            var state =conn!!.prepareStatement("SELECT * FROM pessoa WHERE idPessoa = ?;")
+            state.setInt(1,id)
+
+            this.res = state.executeQuery()
+
+            while (res!!.next()){
+                val idP :Int = res!!.getInt("iDPessoa")
+                val rg :Int = res!!.getInt("RG")
+                val cpf :Int = res!!.getInt("CPF")
+                val name :String = res!!.getString("Nome")
+
+                val pe = Person(idP,name,rg,cpf)
+
+                listinha.add(pe)
+                println(listinha.size)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+        }
+        return listinha
     }
 
 
@@ -196,10 +257,10 @@ fun selectPerson() :MutableList<Person> {
     fun insertStudent(student :Student){
 
         val statement = conn!!.prepareStatement("INSERT INTO aluno" +
-                "(idAluno, Pessoa_idPessoa, Aula_idAula) VALUES (?,?,?) ")
-        statement.setInt(1, student.getIdAluno())
-        statement.setInt(2, student.getPessoaIdPessoa())
-        statement.setInt(3, student.getAulaIdAula())
+                "(Pessoa_idPessoa, Aula_idAula) VALUES (?,?) ")
+
+        statement.setInt(1, student.pessoaIdPessoa)
+        statement.setInt(2, student.aulaIdAula)
         statement.executeUpdate()
 
     }
@@ -282,9 +343,9 @@ fun selectPerson() :MutableList<Person> {
 
         val statement = conn!!.prepareStatement("INSERT INTO aula" +
                 "(idAula, Horario, Dia) VALUES (?,?,?) ")
-        statement.setInt(1, klass.getIdAula())
-        statement.setString(2, klass.getDia())
-        statement.setString(3, klass.getHorario())
+        statement.setInt(1, klass.idAula)
+        statement.setString(2, klass.dia)
+        statement.setString(3, klass.horario)
         statement.executeUpdate()
 
     }
@@ -295,9 +356,9 @@ fun selectPerson() :MutableList<Person> {
 
         val statement = conn!!.prepareStatement("INSERT INTO contrato" +
                 "(idContrato, Arquivo, Aluno_idAluno) VALUES (?,?,?) ")
-        statement.setInt(1, cont.getIdContract() )
-        statement.setString(2, cont.getFileContract())
-        statement.setInt(3, cont.getAlunoIdAluno())
+        statement.setInt(1, cont.idContract )
+        statement.setString(2, cont.fileContract)
+        statement.setInt(3, cont.alunoIdAluno)
         statement.executeUpdate()
 
     }
@@ -307,7 +368,7 @@ fun selectPerson() :MutableList<Person> {
     fun deleteClass(klass :model.Class){
 
         val statement = conn!!.prepareStatement("DELETE FROM aula WHERE idAula = ?")
-        statement.setInt(1, klass.getIdAula())
+        statement.setInt(1, klass.idAula)
         statement.executeUpdate()
 
     }
@@ -316,7 +377,7 @@ fun selectPerson() :MutableList<Person> {
     fun deleteStudent(student :Student){
 
         val statement = conn!!.prepareStatement("DELETE FROM aluno WHERE idAluno = ?")
-        statement.setInt(1, student.getIdAluno())
+        statement.setInt(1, student.idAluno)
         statement.executeUpdate()
 
     }
@@ -325,7 +386,7 @@ fun selectPerson() :MutableList<Person> {
     fun deletePerson(person :Person){
 
         val statement = conn!!.prepareStatement("DELETE FROM pessoa WHERE idPessoa = ?")
-        statement.setInt(1, person.getIdPessoa())
+        statement.setInt(1, person.idPessoa)
         statement.executeUpdate()
     }
 
