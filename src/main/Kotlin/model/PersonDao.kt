@@ -6,7 +6,7 @@ class PersonDao {
 
     var con = DbConn()
 
-    fun save(name: String,rg: Int,cpf: Int){
+    fun save(name: String,rg: Int,cpf: Int){ //
 
        con.supercon()
        con.insertPerson(Person(name = name,rg = rg, cpf = cpf))
@@ -26,16 +26,38 @@ class PersonDao {
         return que[0]
     }
 
-    fun findByName(){
+    fun findByName(name: String):MutableList<Person>{//returns a list of persons in case they have the same name
+
+        con.supercon()
+        val que: MutableList<Person> = con.selectPersonByName(name)
+
+        if (que.isEmpty()){
+            println("Nao encontrado")
+            return que
+        }
+        return que
+
 
     }
 
-    fun update(){
+    fun update(person: Person){//??
+
+        con.supercon()
+        con.updatePerson(person)
 
     }
 
-    fun delete(){
+    fun delete(person: Person){
+        con.supercon()
 
+        con.deletePerson(person)
+
+    }
+
+
+    fun selectAll():MutableList<Person>{
+        con.supercon()
+        return con.selectPerson()
     }
 
 
