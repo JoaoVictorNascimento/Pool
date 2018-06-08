@@ -1,8 +1,21 @@
-import control.db.DbConn
 import model.Person
 import model.PersonDao
-import spark.kotlin.*
+import javax.security.auth.login.Configuration.setConfiguration
+import freemarker.cache.ClassTemplateLoader
+import freemarker.template.Configuration
+import freemarker.template.Template
+import freemarker.template.TemplateExceptionHandler
+import spark.ModelAndView
 import spark.Spark.*
+
+import spark.template.freemarker.FreeMarkerEngine
+import java.io.File
+import java.lang.System.out
+import java.nio.file.Path
+import java.io.OutputStreamWriter
+import java.io.Writer
+import freemarker.cache.WebappTemplateLoader
+import javax.servlet.ServletContext
 
 fun main(args: Array<String>) {
 
@@ -54,6 +67,57 @@ fun main(args: Array<String>) {
     //p.findById(13).printero()
    // p.save("jack2",2418,4152)
     //get("/hello") { req, res -> "Hello World" }
+    val personita = Person(10,"tobias",11223,124)
+    val persons: HashMap<String,String> = hashMapOf()
+    persons.put("person",personita.name)
+
+    var p = PersonDao()
+    val freeMarkerEngine = FreeMarkerEngine()
+    val cfg = Configuration(Configuration.VERSION_2_3_27)
+    cfg.setDirectoryForTemplateLoading(File("PATH TEMPLATES"))
+
+    cfg.defaultEncoding = "UTF-8"
+    cfg.templateExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER
+    cfg.logTemplateExceptions = false
+    cfg.wrapUncheckedExceptions = true
+
+        
+         get("/people"){req,res ->
+
+            val temp: Template
+            temp = cfg.getTemplate(ea)
+
+            res.status(200)
+            res.type("text/html")
+
+            val out = OutputStreamWriter(System.out)
+            //val root: HashMap<String,MutableList<Person>> = hashMapOf()
+            val root: HashMap<String,String> = hashMapOf()
+           // root.put("person",p.selectAll())
+            root.put("person",personita.name)
+                //p.selectAll()
+
+            freeMarkerEngine.render(ModelAndView(root,"templates/people.ftl"))
+            //temp.process(root,out)
+
+        }
+
+        get("/:id"){req,res ->
+            p.findById(req.params("id").toInt())
+        }
+
+        get("/name/:name"){req,res->
+            p.findByName(req.params("name"))
+
+        }
+
+        post("/create"){req,res->
+
+        }
+ 
+        
+        
+        
 
     }
 
