@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ead9b3c1-3edf-4567-ae7a-e67b847207ad" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Kotlin/control/db/DbConn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Kotlin/control/db/DbConn.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Kotlin/control/filerino/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Kotlin/control/filerino/FileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Kotlin/tests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Kotlin/tests.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/bdstruct/DBScript.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/bdstruct/bdzito.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bdstruct/bdzito.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Kotlin/model/Class.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Kotlin/model/Class.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/Kotlin/model/Class.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -144,6 +138,7 @@
         <option value="$PROJECT_DIR$/src/main/Kotlin/control/db/DbConn.kt" />
         <option value="$PROJECT_DIR$/src/main/Kotlin/Main.kt" />
         <option value="$PROJECT_DIR$/src/main/Kotlin/model/Modataly.kt" />
+        <option value="$PROJECT_DIR$/src/main/Kotlin/model/Class.kt" />
       </list>
     </option>
   </component>
@@ -156,11 +151,11 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="153" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-127" />
     <option name="y" value="46" />
-    <option name="width" value="873" />
-    <option name="height" value="697" />
+    <option name="width" value="863" />
+    <option name="height" value="700" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -362,15 +357,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1528577062975</updated>
-      <workItem from="1528577068844" duration="6948000" />
+      <workItem from="1528577068844" duration="6975000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6948000" />
+    <option name="totallyTimeSpent" value="6975000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1366" height="738" extended-state="7" />
+    <frame x="0" y="30" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
@@ -517,7 +512,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/Kotlin/model/Class.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -597,7 +592,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>
