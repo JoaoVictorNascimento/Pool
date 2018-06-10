@@ -4,11 +4,13 @@ import model.Person
 import model.PersonDao
 import spark.ModelAndView
 import spark.Spark.*
+import control.db.DbConn
 import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
 
+
 fun configureFreeMarker(): FreeMarkerEngine {
-	val directory = "directory"
+	val directory = "/home/neos/Documentos/Projetos/Pool3/Pool/src/main/resources/bdstruct/templates"
 	val configuration = Configuration(Configuration.VERSION_2_3_23)
 
 	configuration.defaultEncoding = "UTF-8"
@@ -46,10 +48,8 @@ fun main(args: Array<String>) {
 	}
 
 	
-	//val epa = DbConn() //Serie de testes da conexao do banco
-	//epa.supercon()
-	// epa.selectNameFromP()
-
+	val epa = DbConn() //Serie de testes da conexao do banco
+	epa.supercon()
 	//epa.supercon()
 	//var lisss :MutableList<Person> = epa.selectPerson()
 	//val test :Person = lisss[0]
@@ -73,9 +73,12 @@ fun main(args: Array<String>) {
 
 
 	// val pe = p.findById(101)
-	//p.update(Person(pe.idPessoa,"joe",pe.rg,pe.cpf))
+	p.update(Person(15,"Alvo",156,215))
 	//p.findById(13).printero()
-	//p.save("jack",318,42)
+	 p.save("jack",318,42)
+	 var list = p.selectAll()
+	 for (i in list)
+		 println(i.name)
 	//get("/hello") { req, res -> "Hello World" }
 }
 

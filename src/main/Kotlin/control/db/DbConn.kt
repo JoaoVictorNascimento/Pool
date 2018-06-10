@@ -46,10 +46,10 @@ fun selectPerson() :MutableList<Person> {
 
     try{
         this.stat = this.conn!!.createStatement()
-        this.res = this.stat!!.executeQuery("SELECT * FROM pessoa;")
+        this.res = this.stat!!.executeQuery("SELECT * FROM Pessoa;")
 
 
-        if(stat!!.execute("SELECT * FROM pessoa;")){
+        if(stat!!.execute("SELECT * FROM Pessoa;")){
             res= stat!!.resultSet
         }
         while (res!!.next()){
@@ -112,7 +112,7 @@ fun selectPerson() :MutableList<Person> {
 
     fun insertPerson(person :Person){
 
-            val statement = conn!!.prepareStatement("INSERT INTO pessoa" +
+            val statement = conn!!.prepareStatement("INSERT INTO Pessoa" +
                     "(Nome, RG, CPF) VALUES (?,?,?) ")
             statement.setString(1, person.name)
             statement.setInt(2, person.rg)
@@ -248,7 +248,7 @@ fun selectPerson() :MutableList<Person> {
 
     fun updatePerson(person: Person){
 
-        val statement = conn!!.prepareStatement("UPDATE pessoa SET Nome = ?, RG = ?, CPF = ? WHERE idPessoa = ?" )
+        val statement = conn!!.prepareStatement("UPDATE Pessoa SET Nome = ?, RG = ?, CPF = ? WHERE idPessoa = ?" )
 
         statement.setString(1, person.name)
         statement.setInt(2, person.rg)

@@ -10,7 +10,7 @@ class Filer{
 
         
         //inserir caminho real
-        val inputStream: InputStream = File("C:\\Users\\Thiago\\IdeaProjects\\art1\\src\\main\\resources\\bdstruct\\bdzito.txt").inputStream()
+        val inputStream: InputStream = File("/home/neos/Documentos/Projetos/Pool3/Pool/src/main/resources/bdstruct/bdzito.txt").inputStream()
         val lineList = mutableListOf<String>()
 
         inputStream.bufferedReader().useLines { lines -> lines.forEach { lineList.add(it)} }
