@@ -1,10 +1,8 @@
 import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
-import model.Person
-import model.PersonDao
-import spark.ModelAndView
-import spark.Spark.*
 import control.db.DbConn
+import dao.ModalityDao
+import model.Modality
 import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
 
@@ -21,9 +19,9 @@ fun configureFreeMarker(): FreeMarkerEngine {
 }
 
 fun main(args: Array<String>) {
-	val personita = Person(10, "tobias", 11223, 124)
-	val persons: HashMap<String, String> = hashMapOf()
-
+	//val personita = Person(10, "tobias", 11223, 124)
+	//val persons: HashMap<String, String> = hashMapOf()
+	/*
 	persons["person"] = personita.name
 
 	val p = PersonDao()
@@ -47,7 +45,7 @@ fun main(args: Array<String>) {
 	post("/create") { req, res ->
 	}
 
-	
+	*/
 	val epa = DbConn() //Serie de testes da conexao do banco
 	epa.supercon()
 	//epa.supercon()
@@ -73,12 +71,22 @@ fun main(args: Array<String>) {
 
 
 	// val pe = p.findById(101)
-	p.update(Person(15,"Alvo",156,215))
+	//p.update(Person(15,"Alvo",156,215))
 	//p.findById(13).printero()
-	 p.save("jack",318,42)
-	 var list = p.selectAll()
-	 for (i in list)
-		 println(i.name)
+	 //p.save("jack",318,42)
+	 //var list = p.selectAll()
+	 //for (i in list)
+	//	 println(i.name)
+
+	val crossfit = ModalityDao()
+    val yoga = ModalityDao()
+    val natacao = ModalityDao()
+	crossfit.save("Crossfit")
+    yoga.save("Yoga")
+    //natacao.save("Natacao")
+
+    crossfit.update()
+    //crossfit.delete(Modality(1,"Yoga"))
 	//get("/hello") { req, res -> "Hello World" }
 }
 

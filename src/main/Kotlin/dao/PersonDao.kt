@@ -1,6 +1,7 @@
-package model
+package dao
 
 import control.db.DbConn
+import model.Person
 
 class PersonDao {
 
@@ -9,19 +10,19 @@ class PersonDao {
     fun save(name: String,rg: Int,cpf: Int){ //
 
        con.supercon()
-       con.insertPerson(Person(name = name,rg = rg, cpf = cpf))
+       con.insertPerson(Person(name = name, rg = rg, cpf = cpf))
 
     }
 
 
-    fun findById(id: Int):Person{
+    fun findById(id: Int): Person {
 
         con.supercon()
         val que: MutableList<Person> = con.selectPersonById(id)
 
         if (que.isEmpty()){
             println("Nao encontrado")
-            return Person(-1,"Error",-1,-1)
+            return Person(-1, "Error", -1, -1)
         }
         return que[0]
     }
@@ -36,11 +37,9 @@ class PersonDao {
             return que
         }
         return que
-
-
     }
 
-    fun update(person: Person){//??
+    fun update(person: Person){//
 
         con.supercon()
         con.updatePerson(person)
@@ -49,7 +48,6 @@ class PersonDao {
 
     fun delete(person: Person){
         con.supercon()
-
         con.deletePerson(person)
 
     }
@@ -59,6 +57,5 @@ class PersonDao {
         con.supercon()
         return con.selectPerson()
     }
-
 
 }

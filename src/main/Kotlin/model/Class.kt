@@ -2,4 +2,4 @@ package model
 
 
 
-data class Modality(val idAula :Int,val horario :String,val dia :String)
+data class Class(val idAula :Int,val horario :String,val dia :String)

@@ -5,6 +5,7 @@ import control.filerino.Filer
 import model.Contract
 import model.Person
 import model.Student
+import model.Modality
 import java.sql.*
 
 
@@ -255,7 +256,6 @@ fun selectPerson() :MutableList<Person> {
         statement.setInt(3, person.cpf)
         statement.setInt(4,person.idPessoa)
         statement.executeUpdate()
-
     }
 
 
@@ -341,13 +341,6 @@ fun selectPerson() :MutableList<Person> {
         statement.executeUpdate()
 
     }
-
-
-
-
-
-
-
 
     fun selectClass():MutableList<model.Class>{
 
@@ -465,6 +458,152 @@ fun selectPerson() :MutableList<Person> {
         val statement = conn!!.prepareStatement("DELETE FROM pessoa WHERE idPessoa = ?")
         statement.setInt(1, person.idPessoa)
         statement.executeUpdate()
+    }
+
+    // Crud Modality
+
+    fun insertModality(modality :model.Modality){
+
+        val statement = conn!!.prepareStatement("INSERT INTO Modalidade" +
+                "(Disciplina) VALUES (?) ")
+        statement.setString(1, modality.disciplina)
+        statement.executeUpdate()
+    }
+
+    fun updateModality(modality: Modality){
+
+        val statement = conn!!.prepareStatement("UPDATE Modalidade SET Disciplina = ? WHERE idModalidade = ?" )
+
+        statement.setString(1, modality.disciplina)
+        statement.setInt(2, modality.idModalidade)
+        statement.executeUpdate()
+    }
+
+    fun deleteModality(modality: Modality) {
+        val statement = conn!!.prepareStatement("DELETE FROM Modalidade WHERE idModalidade = ?")
+        statement.setInt(1, modality.idModalidade)
+        statement.executeUpdate()
+    }
+
+    fun selectModalityByName(name: String):MutableList<Modality>{
+
+        var list :MutableList<Modality> = mutableListOf()
+
+        try{
+            var state =conn!!.prepareStatement("SELECT * FROM Modalidade WHERE Disciplina = ?;")
+            state.setString(1,name)
+
+            this.res = state.executeQuery()
+
+            while (res!!.next()){
+                val idModalidade :Int = res!!.getInt("idModalidade")
+                val disciplina :String = res!!.getString("Disciplina")
+
+                val modality = Modality(idModalidade,disciplina)
+
+                list.add(modality)
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+        }
+        return list
+
+    }
+
+    fun selectModality():MutableList<Modality>{
+
+        var listModality :MutableList<Modality> = mutableListOf()
+
+        try{
+            this.stat = this.conn!!.createStatement()
+            this.res = this.stat!!.executeQuery("SELECT * FROM Modalidade;")
+
+
+            if(stat!!.execute("SELECT * FROM Modalidade;")){
+                res= stat!!.resultSet
+            }
+            while (res!!.next()){
+
+                val idModalidade :Int = res!!.getInt("idModalidade")
+                val disciplina :String = res!!.getString("Disciplina")
+
+                val modality = Modality(idModalidade,disciplina)
+                listModality.add(modality)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+
+        }
+
+        return listModality
+
     }
 
 }
