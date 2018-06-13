@@ -6,6 +6,8 @@ import model.Contract
 import model.Person
 import model.Student
 import model.Modality
+import model.PriorityList
+import model.Classs
 import java.sql.*
 
 
@@ -262,106 +264,109 @@ fun selectPerson() :MutableList<Person> {
 
 
 
+//
+//    fun selectStudent():MutableList<Student>{
+//
+//        var listinha :MutableList<Student> = mutableListOf()
+//
+//        try{
+//            this.stat = this.conn!!.createStatement()
+//            this.res = this.stat!!.executeQuery("SELECT * FROM aluno;")
+//
+//
+//            if(stat!!.execute("SELECT * FROM aluno;")){
+//                res= stat!!.resultSet
+//            }
+//            while (res!!.next()){
+//
+//                val idA :Int = res!!.getInt("idAluno")
+//                val peP :Int = res!!.getInt("Pessoa_idPessoa")
+//                val aulIdA :Int = res!!.getInt("Aula_idAula")
+//
+//                val pe = Student(idA,peP,aulIdA)
+//                listinha.add(pe)
+//                //println(listinha.size)
+//
+//            }
+//
+//        }catch (ex: SQLException){
+//            ex.printStackTrace()
+//        }finally {
+//
+//            if (res!=null){
+//                try {
+//                    res!!.close()
+//
+//                }catch (sqlEx: SQLException){
+//
+//                }
+//                res = null
+//            }
+//
+//
+//            if (stat!=null){
+//                try {
+//                    stat!!.close()
+//
+//                }catch (sqlEx: SQLException){
+//
+//                }
+//                stat = null
+//            }
+//
+//            if (conn!=null){
+//                try {
+//                    conn!!.close()
+//
+//                }catch (sqlEx: SQLException){
+//
+//                }
+//                conn = null
+//            }
+//
+//        }
+//
+//        return listinha
+//
+//    }
+//
+//
+//
+//
+//    fun insertStudent(student :Student){
+//
+//        val statement = conn!!.prepareStatement("INSERT INTO aluno" +
+//                "(Pessoa_idPessoa, Aula_idAula) VALUES (?,?) ")
+//
+//        statement.setInt(1, student.pessoaIdPessoa)
+//        statement.setInt(2, student.aulaIdAula)
+//        statement.executeUpdate()
+//
+//    }
 
-    fun selectStudent():MutableList<Student>{
+    fun selectClass():MutableList<model.Classs>{
 
-        var listinha :MutableList<Student> = mutableListOf()
+        var Classlist :MutableList<Classs> = mutableListOf()
 
         try{
             this.stat = this.conn!!.createStatement()
-            this.res = this.stat!!.executeQuery("SELECT * FROM aluno;")
+            this.res = this.stat!!.executeQuery("SELECT * FROM Aula;")
 
 
-            if(stat!!.execute("SELECT * FROM aluno;")){
+            if(stat!!.execute("SELECT * FROM Aula;")){
                 res= stat!!.resultSet
             }
             while (res!!.next()){
 
-                val idA :Int = res!!.getInt("idAluno")
-                val peP :Int = res!!.getInt("Pessoa_idPessoa")
-                val aulIdA :Int = res!!.getInt("Aula_idAula")
-
-                val pe = Student(idA,peP,aulIdA)
-                listinha.add(pe)
-                //println(listinha.size)
-
-            }
-
-        }catch (ex: SQLException){
-            ex.printStackTrace()
-        }finally {
-
-            if (res!=null){
-                try {
-                    res!!.close()
-
-                }catch (sqlEx: SQLException){
-
-                }
-                res = null
-            }
-
-
-            if (stat!=null){
-                try {
-                    stat!!.close()
-
-                }catch (sqlEx: SQLException){
-
-                }
-                stat = null
-            }
-
-            if (conn!=null){
-                try {
-                    conn!!.close()
-
-                }catch (sqlEx: SQLException){
-
-                }
-                conn = null
-            }
-
-        }
-
-        return listinha
-
-    }
-
-
-
-
-    fun insertStudent(student :Student){
-
-        val statement = conn!!.prepareStatement("INSERT INTO aluno" +
-                "(Pessoa_idPessoa, Aula_idAula) VALUES (?,?) ")
-
-        statement.setInt(1, student.pessoaIdPessoa)
-        statement.setInt(2, student.aulaIdAula)
-        statement.executeUpdate()
-
-    }
-
-    fun selectClass():MutableList<model.Class>{
-
-        var listinha :MutableList<model.Class> = mutableListOf()
-
-        try{
-            this.stat = this.conn!!.createStatement()
-            this.res = this.stat!!.executeQuery("SELECT * FROM aula;")
-
-
-            if(stat!!.execute("SELECT * FROM aula;")){
-                res= stat!!.resultSet
-            }
-            while (res!!.next()){
-
-                val idA :Int = res!!.getInt("idAula")
+                val idAluno :Int = res!!.getInt("idAula")
                 val horario :String = res!!.getString("Horario")
                 val dia :String= res!!.getString("Dia")
+                val idmodalidade :Int= res!!.getInt("Modalidade_idModalidade")
+                val professor :String= res!!.getString("Professor")
+                val qntAluno :Int= res!!.getInt("QntAlunos")
 
-                val pe = model.Class(idA,horario,dia)
-                listinha.add(pe)
+                val classs = Classs(idAluno,horario,dia,idmodalidade,professor,qntAluno)
+                Classlist.add(classs)
                 //println(listinha.size)
 
             }
@@ -403,19 +408,84 @@ fun selectPerson() :MutableList<Person> {
 
         }
 
-        return listinha
+        return Classlist
+
+    }
+
+    fun selectClassbyhorario(horario: String):MutableList<Classs>{
+
+        var Classlist :MutableList<Classs> = mutableListOf()
+
+        try{
+            var state =conn!!.prepareStatement("SELECT * FROM Aula WHERE Horario = ?;")
+            state.setString(1,horario)
+
+            this.res = state.executeQuery()
+
+            while (res!!.next()){
+                val idAluno :Int = res!!.getInt("idAula")
+                val horario :String = res!!.getString("Horario")
+                val dia :String= res!!.getString("Dia")
+                val idmodalidade :Int= res!!.getInt("Modalidade_idModalidade")
+                val professor :String= res!!.getString("Professor")
+                val qntAluno :Int= res!!.getInt("QntAlunos")
+
+                val classs = Classs(idAluno,horario,dia,idmodalidade,professor,qntAluno)
+                Classlist.add(classs)
+                //println(listinha.size)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+        }
+        return Classlist
 
     }
 
 
 
-    fun insertClasss(klass :model.Class){
+    fun insertClass(klass :Classs){
 
-        val statement = conn!!.prepareStatement("INSERT INTO aula" +
-                "(idAula, Horario, Dia) VALUES (?,?,?) ")
-        statement.setInt(1, klass.idAula)
-        statement.setString(2, klass.dia)
-        statement.setString(3, klass.horario)
+        val statement = conn!!.prepareStatement("INSERT INTO Aula" +
+                "(Horario, Dia, Modalidade_idModalidade, Professor, QntAlunos) VALUES (?,?,?,?,?) ")
+        statement.setString(1, klass.horario )
+        statement.setString(2,klass.dia )
+        statement.setInt(3,klass.idModality)
+        statement.setString(4,klass.professor)
+        statement.setInt(5,klass.qntAlunos)
         statement.executeUpdate()
 
     }
@@ -435,13 +505,27 @@ fun selectPerson() :MutableList<Person> {
 
 
 
-    fun deleteClass(klass :model.Class){
+    fun deleteClass(id: Int){
 
-        val statement = conn!!.prepareStatement("DELETE FROM aula WHERE idAula = ?")
-        statement.setInt(1, klass.idAula)
+        val statement = conn!!.prepareStatement("DELETE FROM Aula WHERE idAula = ?")
+        statement.setInt(1, id)
         statement.executeUpdate()
 
     }
+
+    fun updateClass(klass: Classs){
+
+        val statement = conn!!.prepareStatement("UPDATE Aula SET Horario = ?, Dia = ?, Modalidade_idModalidade = ?, Professor = ?, QntAlunos = ?  WHERE idAula = ?" )
+
+        statement.setString(1,klass.horario )
+        statement.setString(2,klass.dia)
+        statement.setInt(3,klass.idModality )
+        statement.setString(4,klass.professor)
+        statement.setInt(5,klass.qntAlunos)
+        statement.setInt(6,klass.idAula)
+        statement.executeUpdate()
+    }
+
 
 
     fun deleteStudent(student :Student){
@@ -605,6 +689,170 @@ fun selectPerson() :MutableList<Person> {
         return listModality
 
     }
+    // Crud PriorityList
+
+    fun insertPriority(candidato :PriorityList){
+
+        val statement = conn!!.prepareStatement("INSERT INTO ListadeEspera" +
+                "(Nome_aluno, Telefone, Horario, Modalidade_idModalidade, Observacao) VALUES (?,?,?,?,?) ")
+        statement.setString(1, candidato.nome_aluno )
+        statement.setString(2, candidato.telefone)
+        statement.setString(3, candidato.horario)
+        statement.setInt(4, candidato.idModality)
+        statement.setString(5, candidato.observacao)
+        statement.executeUpdate()
+
+    }
+
+    fun updatePriority(candidato: PriorityList){
+
+        val statement = conn!!.prepareStatement("UPDATE ListadeEspera SET Nome_aluno = ?, Telefone = ?, Horario = ?, Modalidade_idModalidade = ?, Observacao = ? WHERE idListadeEspera = ?" )
+
+        statement.setString(1, candidato.nome_aluno)
+        statement.setString(2, candidato.telefone)
+        statement.setString(3, candidato.horario)
+        statement.setInt(4, candidato.idModality)
+        statement.setString(5, candidato.observacao)
+        statement.setInt(6, candidato.idLista)
+        statement.executeUpdate()
+    }
+
+    fun deletePriority(id: Int) {
+        val statement = conn!!.prepareStatement("DELETE FROM ListadeEspera WHERE idListadeEspera = ?")
+        statement.setInt(1, id)
+        statement.executeUpdate()
+    }
+
+    fun selectPriorityList():MutableList<PriorityList>{
+
+        var priorityList :MutableList<PriorityList> = mutableListOf()
+
+        try{
+            this.stat = this.conn!!.createStatement()
+            this.res = this.stat!!.executeQuery("SELECT * FROM ListadeEspera;")
+
+
+            if(stat!!.execute("SELECT * FROM ListadeEspera;")){
+                res= stat!!.resultSet
+            }
+            while (res!!.next()){
+
+                val idListadeEspera :Int = res!!.getInt("idListadeEspera")
+                val nome_aluno :String = res!!.getString("Nome_aluno")
+                val telefone :String = res!!.getString("Telefone")
+                val horario :String = res!!.getString("Horario")
+                val idmodalidade :Int = res!!.getInt("Modalidade_idModalidade")
+                val observacao :String = res!!.getString("Observacao")
+
+                val priority = PriorityList(idListadeEspera,nome_aluno,telefone,horario,idmodalidade,observacao)
+                priorityList.add(priority)
+
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+
+        }
+
+        return priorityList
+
+    }
+
+    fun selectPriorityByName(name: String):MutableList<PriorityList>{
+
+        var listPriority :MutableList<PriorityList> = mutableListOf()
+
+        try{
+            var state =conn!!.prepareStatement("SELECT * FROM ListadeEspera WHERE Nome_aluno = ?;")
+            state.setString(1,name)
+
+            this.res = state.executeQuery()
+
+            while (res!!.next()){
+                val idListadeEspera :Int = res!!.getInt("idListadeEspera")
+                val nome_aluno :String = res!!.getString("Nome_aluno")
+                val telefone :String = res!!.getString("Telefone")
+                val horario :String = res!!.getString("Horario")
+                val idmodalidade :Int = res!!.getInt("Modalidade_idModalidade")
+                val observacao :String = res!!.getString("Observacao")
+
+                val priority = PriorityList(idListadeEspera,nome_aluno,telefone,horario,idmodalidade,observacao)
+                listPriority.add(priority)
+            }
+
+        }catch (ex: SQLException){
+            ex.printStackTrace()
+        }finally {
+
+            if (res!=null){
+                try {
+                    res!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                res = null
+            }
+
+
+            if (stat!=null){
+                try {
+                    stat!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                stat = null
+            }
+
+            if (conn!=null){
+                try {
+                    conn!!.close()
+
+                }catch (sqlEx: SQLException){
+
+                }
+                conn = null
+            }
+        }
+        return listPriority
+
+    }
+
+    //Crud Classs
+
 
 }
 

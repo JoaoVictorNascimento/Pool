@@ -3,6 +3,7 @@ package dao
 import control.db.DbConn
 import model.Modality
 
+
 class ModalityDao {
     var con = DbConn()
 
@@ -28,6 +29,7 @@ class ModalityDao {
 
         con.supercon()
         con.deleteModality(modality)
+
 
     }
 

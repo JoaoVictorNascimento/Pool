@@ -1,8 +1,13 @@
+import com.sun.xml.internal.bind.v2.schemagen.episode.Klass
 import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
 import control.db.DbConn
+import dao.ClassDao
 import dao.ModalityDao
+import dao.PriorityDao
+import model.Classs
 import model.Modality
+import model.PriorityList
 import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
 
@@ -54,7 +59,7 @@ fun main(args: Array<String>) {
 	//println(test.printero())
 
 	//val ptes = Person(100,"testerson",9742,321) create person
-	//val auTest = model.Class(1,"3:40","Segunda")
+	//val auTest = model.Classs(1,"3:40","Segunda")
 
 	// epa.supercon()
 	//epa.insertClasss(auTest) insert class
@@ -81,13 +86,37 @@ fun main(args: Array<String>) {
 	val crossfit = ModalityDao()
     val yoga = ModalityDao()
     val natacao = ModalityDao()
-	crossfit.save("Crossfit")
+	//crossfit.save("Crossfit")
     yoga.save("Yoga")
     //natacao.save("Natacao")
+	//natacao.update(Modality(5,"Karate"))
 
-    crossfit.update()
-    //crossfit.delete(Modality(1,"Yoga"))
+	//val denis = PriorityDao()
+    //denis.save("Denis","44998722516","terça",2, "Idoso")
+	//val ada = PriorityDao()
+	//ada.save("ada","44998722516","terça",2, "Idoso")
+	//val kevin = PriorityDao()
+	//denis.save("kevin","44998722516","terça",3, "Idoso")
+	//val jane = PriorityDao()
+	//denis.save("jane","44998722516","terça",1, "Idoso")
+    //denis.update(PriorityList(8,"Carlos","1561849298","Quinta",5,"Jovem"))
+	//val candidato = denis.findByName("Carlos")
+
+	val terca = ClassDao()
+	terca.save("15:20","Quinta",1,"Cloves",26)
+	terca.save("17:20","Terça",1,"Leon",26)
+	terca.save("14:50","Quarta",1,"Jim",26)
+	terca.save("12:40","Domingo",1,"Selena",26)
+
+
+	val mdf = terca.findByhorario("14:50")
+	for (i in mdf)
+		println(i.professor)
+
+
 	//get("/hello") { req, res -> "Hello World" }
+
+	//denis.delete(4)
 }
 
 /*
