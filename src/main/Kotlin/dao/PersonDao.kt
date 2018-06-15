@@ -1,24 +1,23 @@
 package dao
 
-import control.db.DbConn
+import control.db.JDBCPersonDAO
 import model.Person
 
 class PersonDao {
 
-    var con = DbConn()
+    val dao = JDBCPersonDAO()
 
     fun save(name: String,rg: Int,cpf: Int){ //
 
-       con.supercon()
-       con.insertPerson(Person(name = name, rg = rg, cpf = cpf))
+       dao.insertPerson(Person(name = name, rg = rg, cpf = cpf))
 
     }
 
 
     fun findById(id: Int): Person {
 
-        con.supercon()
-        val que: MutableList<Person> = con.selectPersonById(id)
+
+        val que: MutableList<Person> = dao.selectPersonById(id)
 
         if (que.isEmpty()){
             println("Nao encontrado")
@@ -29,8 +28,8 @@ class PersonDao {
 
     fun findByName(name: String):MutableList<Person>{//returns a list of persons in case they have the same name
 
-        con.supercon()
-        val que: MutableList<Person> = con.selectPersonByName(name)
+
+        val que: MutableList<Person> = dao.selectPersonByName(name)
 
         if (que.isEmpty()){
             println("Nao encontrado")
@@ -41,21 +40,20 @@ class PersonDao {
 
     fun update(person: Person){//
 
-        con.supercon()
-        con.updatePerson(person)
+
+        dao.updatePerson(person)
 
     }
 
     fun delete(person: Person){
-        con.supercon()
-        con.deletePerson(person)
+
+        dao.deletePerson(person)
 
     }
 
 
     fun selectAll():MutableList<Person>{
-        con.supercon()
-        return con.selectPerson()
+        return dao.selectPerson()
     }
 
 }
