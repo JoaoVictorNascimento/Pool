@@ -2,10 +2,7 @@ import com.sun.xml.internal.bind.v2.schemagen.episode.Klass
 import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
 import control.db.DbConn
-import dao.ClassDao
-import dao.ModalityDao
-import dao.PersonDao
-import dao.PriorityDao
+import dao.*
 import model.Classs
 import model.Modality
 import model.Person
@@ -19,7 +16,7 @@ import java.io.File
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
-	val directory = ""
+	val directory = "C:\\Users\\Thiago\\IdeaProjects\\thePool\\Pool\\src\\main\\resources\\bdstruct\\templates"
 	val configuration = Configuration(Configuration.VERSION_2_3_23)
 
 	configuration.defaultEncoding = "UTF-8"
@@ -38,7 +35,9 @@ fun main(args: Array<String>) {
 	persons.put(personita.name,personita.cpf.toString())
 	val p = PersonDao()
 	val freeMarkerEngine = configureFreeMarker()
-	println(p.selectAll())
+
+	val s = StudentDao()
+	println(s.selectAll())
 
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()

@@ -36,87 +36,6 @@ fun supercon(): Connection? { //conexao com o banco
     return conn
 }
 
-
-//
-//    fun selectStudent():MutableList<Student>{
-//
-//        var listinha :MutableList<Student> = mutableListOf()
-//
-//        try{
-//            this.stat = this.conn!!.createStatement()
-//            this.res = this.stat!!.executeQuery("SELECT * FROM aluno;")
-//
-//
-//            if(stat!!.execute("SELECT * FROM aluno;")){
-//                res= stat!!.resultSet
-//            }
-//            while (res!!.next()){
-//
-//                val idA :Int = res!!.getInt("idAluno")
-//                val peP :Int = res!!.getInt("Pessoa_idPessoa")
-//                val aulIdA :Int = res!!.getInt("Aula_idAula")
-//
-//                val pe = Student(idA,peP,aulIdA)
-//                listinha.add(pe)
-//                //println(listinha.size)
-//
-//            }
-//
-//        }catch (ex: SQLException){
-//            ex.printStackTrace()
-//        }finally {
-//
-//            if (res!=null){
-//                try {
-//                    res!!.close()
-//
-//                }catch (sqlEx: SQLException){
-//
-//                }
-//                res = null
-//            }
-//
-//
-//            if (stat!=null){
-//                try {
-//                    stat!!.close()
-//
-//                }catch (sqlEx: SQLException){
-//
-//                }
-//                stat = null
-//            }
-//
-//            if (conn!=null){
-//                try {
-//                    conn!!.close()
-//
-//                }catch (sqlEx: SQLException){
-//
-//                }
-//                conn = null
-//            }
-//
-//        }
-//
-//        return listinha
-//
-//    }
-//
-//
-//
-//
-//    fun insertStudent(student :Student){
-//
-//        val statement = conn!!.prepareStatement("INSERT INTO aluno" +
-//                "(Pessoa_idPessoa, Aula_idAula) VALUES (?,?) ")
-//
-//        statement.setInt(1, student.pessoaIdPessoa)
-//        statement.setInt(2, student.aulaIdAula)
-//        statement.executeUpdate()
-//
-//    }
-
     fun selectClass():MutableList<model.Classs>{
 
         var Classlist :MutableList<Classs> = mutableListOf()
@@ -298,21 +217,6 @@ fun supercon(): Connection? { //conexao com o banco
         statement.setInt(6,klass.idAula)
         statement.executeUpdate()
     }
-
-
-
-    fun deleteStudent(student :Student){
-
-        val statement = conn!!.prepareStatement("DELETE FROM aluno WHERE idAluno = ?")
-        statement.setInt(1, student.idAluno)
-        statement.executeUpdate()
-
-    }
-
-
-
-
-    // Crud Modality
 
     fun insertModality(modality :model.Modality){
 
