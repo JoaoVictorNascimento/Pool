@@ -14,7 +14,7 @@ import java.sql.Date
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
-	val directory = "C:\\Users\\Thiago\\IdeaProjects\\thePool\\Pool\\src\\main\\resources\\bdstruct\\templates"
+	val directory = ""
 	val configuration = Configuration(Configuration.VERSION_2_3_23)
 
 	configuration.defaultEncoding = "UTF-8"
