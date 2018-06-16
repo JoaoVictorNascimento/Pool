@@ -14,7 +14,7 @@ import java.sql.Date
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
-	val directory = ""
+	val directory = "C:\\Users\\Thiago\\IdeaProjects\\thePool\\Pool\\src\\main\\resources\\bdstruct\\templates"
 	val configuration = Configuration(Configuration.VERSION_2_3_23)
 
 	configuration.defaultEncoding = "UTF-8"
@@ -41,8 +41,11 @@ fun main(args: Array<String>) {
 
 
 	val s = StudentDao()
+	val sw= StudentDao()
 	//s.save(stu)
-	println(s.selectAll())
+	println(sw.selectAll())
+	println(sw.selectAll())
+	//println(s.selectName("Rosh"))
 
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()

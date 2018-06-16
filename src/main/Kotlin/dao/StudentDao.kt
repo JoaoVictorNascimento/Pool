@@ -14,16 +14,32 @@ class StudentDao{
               idade: Int,sexo: String,endereco: String,telefone: String,responsavel: String,
               nascimento: Date,idoso: Boolean){
 
-         dao.insertStudent(Student(nome = nome,rg = rg,cpf = cpf,aula = aula,modalidade = modalidade,idade = idade,sexo = sexo,
+         dao.insert(Student(nome = nome,rg = rg,cpf = cpf,aula = aula,modalidade = modalidade,idade = idade,sexo = sexo,
                  endereco = endereco,telefone = telefone,responsavel = responsavel,nascimento = nascimento,idoso = idoso))
     }
 
     fun save(student: Student){
-        dao.insertStudent(student)
+        dao.insert(student)
     }
 
     fun selectAll():MutableList<Student>{
-        return dao.selectStudent()
+        return dao.selectAll()
     }
+
+    fun selectName(name: String):MutableList<Student>{
+        return dao.selectByName(name)
+    }
+    fun delete(student: Student){
+        dao.delete(student)
+    }
+
+    fun update(student: Student){
+        dao.update(student)
+    }
+
+    fun delete(id: Int){
+        dao.delete(id)
+    }
+
 
 }
