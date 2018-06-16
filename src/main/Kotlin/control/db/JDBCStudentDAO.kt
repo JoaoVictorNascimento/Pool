@@ -97,8 +97,8 @@ class JDBCStudentDAO{
     fun insertStudent(student :Student){
 
         val statement = conn!!.prepareStatement("INSERT INTO aluno" +
-                "(idAluno,Nome,Rg,Cpf,Aula_idAula,Aula_modalidade_idModalidade,Idade,Sexo,Enderenco,Telefone," +
-                "Responsavel,DataNascimento,Idoso) VALUES (?,?,?,?,?,?,?,?,?,?,?) ")
+                "(idAluno,Nome,Rg,Cpf,Aula_idAula,Aula_modalidade_idModalidade,Idade,Sexo,Endereco,Telefone," +
+                "Responsavel,DataNascimento,Idoso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ")
 
         statement.setInt(1, student.id)
         statement.setString(2, student.nome)

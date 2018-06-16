@@ -28,7 +28,6 @@ class PersonDao {
 
     fun findByName(name: String):MutableList<Person>{//returns a list of persons in case they have the same name
 
-
         val que: MutableList<Person> = dao.selectPersonByName(name)
 
         if (que.isEmpty()){
@@ -39,7 +38,6 @@ class PersonDao {
     }
 
     fun update(person: Person){//
-
 
         dao.updatePerson(person)
 

@@ -3,16 +3,14 @@ import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
 import control.db.DbConn
 import dao.*
-import model.Classs
-import model.Modality
-import model.Person
-import model.PriorityList
+import model.*
 import org.eclipse.jetty.util.MultiMap
 import org.eclipse.jetty.util.UrlEncoded
 import spark.ModelAndView
 import spark.Spark
 import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
+import java.sql.Date
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
@@ -35,8 +33,15 @@ fun main(args: Array<String>) {
 	persons.put(personita.name,personita.cpf.toString())
 	val p = PersonDao()
 	val freeMarkerEngine = configureFreeMarker()
+	val date = Date.valueOf("1992-12-12")
+
+	val stu = Student(nome = "Rosh",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 22,sexo = "masc",
+			endereco = "rosh pi",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
+
+
 
 	val s = StudentDao()
+	//s.save(stu)
 	println(s.selectAll())
 
 	Spark.get("/people") { req, res ->

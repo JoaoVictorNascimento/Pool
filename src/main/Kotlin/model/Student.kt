@@ -5,10 +5,10 @@ import java.sql.Date
 
 
 data class Student(val id: Int = 0,
-                   val fichaCadastral: Blob?,
-                   val fichaMedica: Blob?,
-                   val contrato: Blob?,
-                   val fichaAnamnese: Blob?,
+                   val fichaCadastral: Blob? = null,
+                   val fichaMedica: Blob? = null,
+                   val contrato: Blob? = null,
+                   val fichaAnamnese: Blob? = null,
                    val nome: String,
                    val rg: Int,
                    val cpf: Int,
