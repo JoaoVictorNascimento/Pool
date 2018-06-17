@@ -15,8 +15,6 @@ class PersonDao {
 
 
     fun findById(id: Int): Person {
-
-
         val que: MutableList<Person> = dao.selectPersonById(id)
 
         if (que.isEmpty()){

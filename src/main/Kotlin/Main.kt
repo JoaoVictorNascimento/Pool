@@ -38,14 +38,14 @@ fun main(args: Array<String>) {
 	val stu = Student(nome = "Rosh",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 22,sexo = "masc",
 			endereco = "rosh pi",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
 
-
-
 	val s = StudentDao()
 	val sw= StudentDao()
 	//s.save(stu)
-	println(sw.selectAll())
-	println(sw.selectAll())
+	//println(sw.selectAll())
+	//println(sw.selectAll())
 	//println(s.selectName("Rosh"))
+	val x :MutableList<Person> = mutableListOf()
+	println(x)
 
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()
@@ -73,48 +73,4 @@ fun main(args: Array<String>) {
 
 	}
 
-
-
-
-//	val crossfit = ModalityDao()
-//    val yoga = ModalityDao()
-//    val natacao = ModalityDao()
-//	//crossfit.save("Crossfit")
-//    yoga.save("Yoga")
-//    //natacao.save("Natacao")
-//	//natacao.update(Modality(5,"Karate"))
-//
-//	//val denis = PriorityDao()
-//    //denis.save("Denis","44998722516","terça",2, "Idoso")
-//	//val ada = PriorityDao()
-//	//ada.save("ada","44998722516","terça",2, "Idoso")
-//	//val kevin = PriorityDao()
-//	//denis.save("kevin","44998722516","terça",3, "Idoso")
-//	//val jane = PriorityDao()
-//	//denis.save("jane","44998722516","terça",1, "Idoso")
-//    //denis.update(PriorityList(8,"Carlos","1561849298","Quinta",5,"Jovem"))
-//	//val candidato = denis.findByName("Carlos")
-//
-//	val terca = ClassDao()
-//	terca.save("15:20","Quinta",1,"Cloves",26)
-//	terca.save("17:20","Terça",1,"Leon",26)
-//	terca.save("14:50","Quarta",1,"Jim",26)
-//	terca.save("12:40","Domingo",1,"Selena",26)
-//
-//
-//	val mdf = terca.findByhorario("14:50")
-//	for (i in mdf)
-//		println(i.professor)
-
-
-	//get("/hello") { req, res -> "Hello World" }
-
-	//denis.delete(4)
 }
-
-/*
-    fun shouldReturnHtml(request: Request):Boolean {
-
-       val accept = request.headers("Accept")
-    return accept != null && accept.contains("text/html")
-*/
