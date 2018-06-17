@@ -1,9 +1,12 @@
 package control.results
-
 import model.Student
 
-data class Result(val error: Int,val msg: String,val result: Student? = null){
+enum class MessageType{SUCCESS,FAILED,EMPTY}
 
-        constructor(resultlist: MutableList<Student>,error: Int , msg: String) : this (error,msg)
+data class Result(val error: Int? = null,val msg: MessageType,val result: MutableList<Student>? = null)
 
-}
+//data class Error(val error: Int, val msg:String? = null)
+
+enum class ErrorType{FAILED,BD_FULL}
+
+data class Error(val error: Int? = null, val e: ErrorType? = null)

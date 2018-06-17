@@ -1,10 +1,15 @@
 package dao
 
 import control.db.JDBCStudentDAO
+import control.results.Error
+import control.results.ErrorType
+import control.results.MessageType
 import model.Student
 import java.sql.Blob
 import java.sql.Date
 import control.results.Result
+import kotlin.math.E
+
 class StudentDao{
 
     val dao = JDBCStudentDAO()
@@ -19,12 +24,20 @@ class StudentDao{
     }
 
 
-    fun save(student: Student){
-        dao.insert(student)
+    fun save(student: Student):Error{
+        if(dao.insert(student) == (Error())){
+            println("Success")
+            return Error()
+        }
+           return Error(1,ErrorType.FAILED)
     }
 
-    fun selectAll():MutableList<Student>{
-        return dao.selectAll()
+    fun selectAll():Result{
+        val retu= dao.selectAll()
+        if(retu.isEmpty()){
+            return Result(  null,MessageType.EMPTY, retu)
+        }
+        return Result( null, MessageType.SUCCESS, retu)
     }
 
     fun selectName(name: String):Result{
@@ -32,10 +45,9 @@ class StudentDao{
         val retu = dao.selectByName(name)
 
         if(retu.isEmpty()){
-            return Result(retu,1,"Empty")
+            return Result(null,MessageType.EMPTY,retu)
         }
-
-        return Result(retu,0,"Found")
+        return Result(null,MessageType.SUCCESS,retu)
     }
 
     fun delete(student: Student){

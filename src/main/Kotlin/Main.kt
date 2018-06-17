@@ -35,17 +35,18 @@ fun main(args: Array<String>) {
 	val freeMarkerEngine = configureFreeMarker()
 	val date = Date.valueOf("1992-12-12")
 
-	val stu = Student(nome = "Rosh",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 22,sexo = "masc",
-			endereco = "rosh pi",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
+	val stu = Student(nome = "dera",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 13,sexo = "masc",
+			endereco = "ecoaer",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
 
 	val s = StudentDao()
 	val sw= StudentDao()
 	//s.save(stu)
 	//println(sw.selectAll())
-	//println(sw.selectAll())
+	//println(sw.selectAll().result!![1].nome)
 	//println(s.selectName("Rosh"))
+	s.delete(1)
 	val x :MutableList<Person> = mutableListOf()
-	println(x)
+	//println(x)
 
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()

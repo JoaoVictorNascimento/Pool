@@ -1,5 +1,8 @@
 package control.db
 
+import control.results.Error
+import control.results.ErrorType
+import control.results.Result
 import model.Student
 import java.sql.*
 
@@ -169,8 +172,9 @@ class JDBCStudentDAO{
 
     }
 
-    fun insert(student :Student){
+    fun insert(student :Student):Error{
         conn = DbConn().supercon()
+        try{
         val statement = conn!!.prepareStatement("INSERT INTO aluno" +
                 "(idAluno,Nome,Rg,Cpf,Aula_idAula,Aula_modalidade_idModalidade,Idade,Sexo,Endereco,Telefone," +
                 "Responsavel,DataNascimento,Idoso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ")
@@ -189,6 +193,12 @@ class JDBCStudentDAO{
         statement.setDate(12, student.nascimento)
         statement.setBoolean(13, student.idoso)
         statement.executeUpdate()
+
+        }catch (e: SQLException){
+            e.printStackTrace()
+            return Error(1, ErrorType.FAILED)
+        }
+        return Error()
     }
 
     fun delete(student :Student){
