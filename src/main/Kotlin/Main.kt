@@ -44,7 +44,9 @@ fun main(args: Array<String>) {
 	//println(sw.selectAll())
 	//println(sw.selectAll().result!![1].nome)
 	//println(s.selectName("Rosh"))
-	s.delete(1)
+	//s.delete(1)
+    //println(s.byIdoso(1))
+
 	val x :MutableList<Person> = mutableListOf()
 	//println(x)
 

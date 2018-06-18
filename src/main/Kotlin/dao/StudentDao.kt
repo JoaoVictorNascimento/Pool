@@ -32,7 +32,7 @@ class StudentDao{
            return Error(1,ErrorType.FAILED)
     }
 
-    fun selectAll():Result{
+    fun fetchAll():Result{
         val retu= dao.selectAll()
         if(retu.isEmpty()){
             return Result(  null,MessageType.EMPTY, retu)
@@ -40,7 +40,7 @@ class StudentDao{
         return Result( null, MessageType.SUCCESS, retu)
     }
 
-    fun selectName(name: String):Result{
+    fun byName(name: String):Result{
 
         val retu = dao.selectByName(name)
 
@@ -48,6 +48,26 @@ class StudentDao{
             return Result(null,MessageType.EMPTY,retu)
         }
         return Result(null,MessageType.SUCCESS,retu)
+    }
+
+    fun byIdoso(i:Int):Result{
+        var bool:Boolean = false
+        if(i == 0){
+            bool = false
+        }
+        if(i == 1){
+            bool = true
+        }
+        if((i != 1) && ( i!=0 )){
+            return Result(1,MessageType.WRONG_VALUES)
+        }
+
+        val retu = dao.selectIdoso(bool).result
+
+        if (retu != null) {
+                return Result(null,MessageType.SUCCESS,retu)
+        }
+        return Result(null,MessageType.EMPTY,retu)
     }
 
     fun delete(student: Student){

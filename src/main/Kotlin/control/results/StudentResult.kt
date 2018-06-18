@@ -1,7 +1,7 @@
 package control.results
 import model.Student
 
-enum class MessageType{SUCCESS,FAILED,EMPTY}
+enum class MessageType{SUCCESS,FAILED,EMPTY,WRONG_VALUES}
 
 data class Result(val error: Int? = null,val msg: MessageType,val result: MutableList<Student>? = null)
 
