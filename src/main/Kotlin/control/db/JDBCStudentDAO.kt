@@ -18,7 +18,7 @@ class JDBCStudentDAO{
     private var res : ResultSet? = null
 
 
-    fun selectAll():MutableList<Student>{
+    fun selectAll():Result{
         conn = DbConn().supercon()
         val listinha :MutableList<Student> = mutableListOf()
 
@@ -66,11 +66,9 @@ class JDBCStudentDAO{
                     res!!.close()
 
                 }catch (sqlEx: SQLException){
-
                 }
                 res = null
             }
-
 
             if (stat!=null){
                 try {
@@ -93,9 +91,7 @@ class JDBCStudentDAO{
             }
 
         }
-
-        return listinha
-
+        return Result(null,MessageType.SUCCESS,listinha)
     }
 
     fun selectByName(name: String):Result{
@@ -246,6 +242,7 @@ class JDBCStudentDAO{
     }
 
     fun insert(student :Student):Error{
+        val success: Int
         conn = DbConn().supercon()
         try{
         val statement = conn!!.prepareStatement("INSERT INTO aluno" +
@@ -265,39 +262,42 @@ class JDBCStudentDAO{
         statement.setString(11, student.responsavel)
         statement.setDate(12, student.nascimento)
         statement.setBoolean(13, student.idoso)
-        statement.executeUpdate()
+        success = statement.executeUpdate()
 
         }catch (e: SQLException){
             e.printStackTrace()
             return Error(1, ErrorType.FAILED)
         }
-        return Error()
+        return if (success == 1) Error(null,null) else Error(null,ErrorType.FAILED)
     }
 
     fun delete(student :Student):Error{
+        val success: Int
         try{
             conn = DbConn().supercon()
             val statement = conn!!.prepareStatement("DELETE FROM aluno WHERE idAluno = ?")
             statement.setInt(1, student.id)
-            statement.executeUpdate()
+            success = statement.executeUpdate()
         }catch (e: SQLException){
             e.printStackTrace()
             return Error(1,ErrorType.FAILED)
         }
-        return Error()
+        return if (success == 1) Error(null,ErrorType.DELETED) else Error(null,ErrorType.UNCHANGED)
     }
 
     fun delete(id: Int):Error{
+        val success: Int
         try{
             conn = DbConn().supercon()
             val statement = conn!!.prepareStatement("DELETE FROM aluno WHERE idAluno = ?")
             statement.setInt(1,id)
-            statement.executeUpdate()
+            success = statement.executeUpdate()// 0 deleta nada 1 deletou algo
+
         }catch (e: SQLException){
             e.printStackTrace()
             return Error(1,ErrorType.FAILED)
         }
-        return Error()
+        return if (success == 1) Error(null,ErrorType.DELETED) else Error(null,ErrorType.UNCHANGED)
     }
 
     fun update(student: Student):Error{

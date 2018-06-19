@@ -42,12 +42,14 @@ class StudentDao{
 
     fun byName(name: String):Result{
 
-        val retu = dao.selectByName(name)
+        val retu = dao.selectByName(name).result
 
-        if(retu.isEmpty()){
-            return Result(null,MessageType.EMPTY,retu)
+        if (retu != null) {
+
+                return Result(null,MessageType.SUCCESS,retu)
+
         }
-        return Result(null,MessageType.SUCCESS,retu)
+        return Result(null,MessageType.EMPTY,retu)
     }
 
     fun byIdoso(i:Int):Result{
@@ -79,7 +81,7 @@ class StudentDao{
     }
 
     fun delete(id: Int){
-        dao.delete(id)
+       println( dao.delete(id).e)
     }
 
 
