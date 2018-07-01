@@ -1,4 +1,4 @@
-package dao
+package model.dao
 
 import control.db.JDBCStudentDAO
 import control.results.Error
@@ -8,7 +8,6 @@ import model.Student
 import java.sql.Blob
 import java.sql.Date
 import control.results.Result
-import kotlin.math.E
 
 class StudentDao{
 
@@ -38,15 +37,8 @@ class StudentDao{
     }
 
     fun byName(name: String):Result{
-
-        val retu = dao.selectByName(name).result
-
-        if (retu != null) {
-
-                return Result(null,MessageType.SUCCESS,retu)
-
-        }
-        return Result(null,MessageType.EMPTY,retu)
+        val retu = dao.selectByName(name)
+       return if(retu.isEmpty()) Result(null,MessageType.SUCCESS,retu.result) else Result(1,MessageType.EMPTY,retu.result)
     }
 
     fun byIdoso(i:Int):Result{
@@ -60,13 +52,8 @@ class StudentDao{
         if((i != 1) && ( i!=0 )){
             return Result(1,MessageType.WRONG_VALUES)
         }
-
-        val retu = dao.selectIdoso(bool).result
-
-        if (retu != null) {
-                return Result(null,MessageType.SUCCESS,retu)
-        }
-        return Result(null,MessageType.EMPTY,retu)
+        val retu = dao.selectIdoso(bool)
+        return if(retu.isEmpty()) Result(null,MessageType.EMPTY,retu.result) else Result(null,MessageType.SUCCESS,retu.result)
     }
 
     fun delete(student: Student){

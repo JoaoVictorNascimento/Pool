@@ -1,8 +1,6 @@
-import com.sun.xml.internal.bind.v2.schemagen.episode.Klass
 import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
-import control.db.DbConn
-import dao.*
+import model.dao.*
 import model.*
 import org.eclipse.jetty.util.MultiMap
 import org.eclipse.jetty.util.UrlEncoded
@@ -20,7 +18,6 @@ fun configureFreeMarker(): FreeMarkerEngine {
 	configuration.defaultEncoding = "UTF-8"
 	configuration.numberFormat = "computer"
 	configuration.templateLoader = FileTemplateLoader(File(directory))
-
 	return FreeMarkerEngine(configuration)
 }
 
@@ -44,8 +41,8 @@ fun main(args: Array<String>) {
 	//println(sw.selectAll())
 	//println(sw.selectAll().result!![1].nome)
 	//println(s.selectName("Rosh"))
-	s.delete(3)
-    //println(s.byIdoso(1))
+	//s.delete(3)
+    println(s.byIdoso(1))
 
 	val x :MutableList<Person> = mutableListOf()
 	//println(x)

@@ -1,7 +1,7 @@
 package control.results
 import model.Student
 
-enum class MessageType{SUCCESS,FAILED,EMPTY,WRONG_VALUES}
+enum class MessageType{SUCCESS,FAILED,EMPTY,WRONG_VALUES}//成功
 
 data class Result(val error: Int? = null,val msg: MessageType,val result: MutableList<Student>? = null) {
     fun isEmpty(): Boolean {

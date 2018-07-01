@@ -1,4 +1,4 @@
-package dao
+package model.dao
 
 import control.db.DbConn
 import model.PriorityList
