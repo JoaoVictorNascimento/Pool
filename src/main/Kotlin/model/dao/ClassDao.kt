@@ -1,38 +1,45 @@
 package model.dao
 
 import control.db.DbConn
+import control.db.JDBCClassDAO
+import control.results.*
 import model.Classs
 
 class ClassDao {
-    var con = DbConn()
 
-    fun save(horario: String, dia: String, idmodalidade: Int, professor: String, qntAlunos: Int){
-        con.supercon()
-        con.insertClass(Classs(horario = horario, dia = dia, idModality = idmodalidade, professor = professor, qntAlunos = qntAlunos))
-        return println("Cadastrado com Sucesso")
+    val dao = JDBCClassDAO()
+
+    fun save(horario: String, dia: String, idmodalidade: Int, professor: String, qntAlunos: Int):Error{
+
+        var c =  Classs(horario = horario, dia = dia, idModality = idmodalidade, professor = professor, qntAlunos = qntAlunos)
+
+        if(dao.insert(c) == (Error())){
+            println("Success")
+            return Error()
+        }
+        return Error(1, ErrorType.FAILED)
     }
 
     fun delete(id: Int){
-        con.supercon()
-        con.deleteClass(id)
+
+        //dao.deleteClass(id)
         return println("Deletado com Sucesso")
     }
 
     fun update(klass: Classs){
-        con.supercon()
-        con.updateClass(klass)
+
+        //dao.updateClass(klass)
     }
 
-    fun selectAll():MutableList<Classs>{
-        con.supercon()
-        return con.selectClass()
+    fun fetchAll(): ResultC {
+        val retu= dao.fetch()
+        return if (retu.result!!.isEmpty()) ResultC(null, MessageType.SUCCESS,retu.result) else ResultC(1, MessageType.EMPTY,retu.result)
     }
 
-    fun findByhorario(horario: String):MutableList<Classs>{//returns a list of persons in case they have the same name
+    fun byhorario(horario: String):ResultC{
 
-        con.supercon()
-        val listPriorityList: MutableList<Classs> = con.selectClassbyhorario(horario)
-        return listPriorityList
+        val retu = dao.classbyhorario(horario)
+        return if (retu.result!!.isEmpty()) ResultC(null, MessageType.SUCCESS,retu.result) else ResultC(1, MessageType.EMPTY,retu.result)
     }
 }
 

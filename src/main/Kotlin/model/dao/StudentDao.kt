@@ -32,7 +32,7 @@ class StudentDao{
     }
 
     fun fetchAll():Result{
-        val retu= dao.selectAll()
+        val retu= dao.fetch()
         return if (retu.result!!.isEmpty()) Result(null,MessageType.SUCCESS,retu.result) else Result(1,MessageType.EMPTY,retu.result)
     }
 

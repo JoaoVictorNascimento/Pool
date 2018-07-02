@@ -18,7 +18,7 @@ class JDBCStudentDAO{
     private var res : ResultSet? = null
 
 
-    fun selectAll():Result{
+    fun fetch():Result{
         conn = DbConn().supercon()
         val listinha :MutableList<Student> = mutableListOf()
 

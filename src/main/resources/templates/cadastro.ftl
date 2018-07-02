@@ -3,6 +3,10 @@
 <#include "layout.ftl">
 
 <#macro page_body>
+ <head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ </head>
+
 <h1> Cadastro de Alunos</h1>
     <form action = "#" method = "post">
 
@@ -29,6 +33,14 @@
         <br>
         <div class align="center">
             <input class="square_btn" type="submit" value="Cadastrar">
+            <script>
+                $( "#square_btn" ).click(function() {
+                    $("#msg").html( "Handler for .click() called." );
+                });
+            </script>
         </div>
+
+
     </form>
+
 </#macro>
