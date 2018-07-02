@@ -8,6 +8,7 @@ import java.sql.SQLException
 import java.sql.Statement
 
 
+
 class JDBCClassDAO{
 
     private var conn : Connection? = DbConn().supercon()
@@ -167,6 +168,55 @@ class JDBCClassDAO{
         return if (success == 1) Error(null,null) else Error(null,ErrorType.FAILED)
     }
 
+    fun delete(id: Int):Error{
+        val success: Int
+        conn = DbConn().supercon()
+        try {
+            val statement = conn!!.prepareStatement("DELETE FROM Aula WHERE idAula = ?")
+            statement.setInt(1, id)
+           success = statement.executeUpdate()
+            }catch (e: SQLException){
+            e.printStackTrace()
+            return Error(1, ErrorType.FAILED)
+        }
+        return if (success == 1) Error(null,null) else Error(null,ErrorType.FAILED)
+    }
+
+    fun delete(klass: Classs):Error{
+        val success: Int
+        conn = DbConn().supercon()
+        try {
+            val statement = conn!!.prepareStatement("DELETE FROM Aula WHERE idAula = ?")
+            statement.setInt(1, klass.id)
+            success = statement.executeUpdate()
+        }catch (e: SQLException){
+            e.printStackTrace()
+            return Error(1, ErrorType.FAILED)
+        }
+        return if (success == 1) Error(null,null) else Error(null,ErrorType.FAILED)
+    }
+
+
+    fun update(klass: Classs):Error{
+        val success: Int
+        conn = DbConn().supercon()
+        try{
+            val statement = conn!!.prepareStatement("UPDATE Aula SET Horario = ?, Dia = ?, Modalidade_idModalidade = ?, Professor = ?, QntAlunos = ?  WHERE idAula = ?" )
+
+            statement.setString(1,klass.horario )
+            statement.setString(2,klass.dia)
+            statement.setInt(3,klass.idModality )
+            statement.setString(4,klass.professor)
+            statement.setInt(5,klass.qntAlunos)
+            statement.setInt(6,klass.id)
+           success = statement.executeUpdate()
+        }catch(e: SQLException){
+            e.printStackTrace()
+            return Error(1, ErrorType.FAILED)
+        }
+        return if (success == 1) Error(null,null) else Error(null,ErrorType.FAILED)
+
+    }
 
 
 

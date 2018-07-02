@@ -58,26 +58,9 @@ fun supercon(): Connection? { //conexao com o banco
 
 
 
-    fun deleteClass(id: Int){
 
-        val statement = conn!!.prepareStatement("DELETE FROM Aula WHERE idAula = ?")
-        statement.setInt(1, id)
-        statement.executeUpdate()
 
-    }
 
-    fun updateClass(klass: Classs){
-
-        val statement = conn!!.prepareStatement("UPDATE Aula SET Horario = ?, Dia = ?, Modalidade_idModalidade = ?, Professor = ?, QntAlunos = ?  WHERE idAula = ?" )
-
-        statement.setString(1,klass.horario )
-        statement.setString(2,klass.dia)
-        statement.setInt(3,klass.idModality )
-        statement.setString(4,klass.professor)
-        statement.setInt(5,klass.qntAlunos)
-        statement.setInt(6,klass.idAula)
-        statement.executeUpdate()
-    }
 
     fun insertModality(modality :model.Modality){
 

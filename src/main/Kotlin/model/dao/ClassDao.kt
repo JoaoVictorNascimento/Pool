@@ -21,14 +21,12 @@ class ClassDao {
     }
 
     fun delete(id: Int){
-
-        //dao.deleteClass(id)
-        return println("Deletado com Sucesso")
+        dao.delete(id)
     }
 
     fun update(klass: Classs){
 
-        //dao.updateClass(klass)
+        dao.update(klass)
     }
 
     fun fetchAll(): ResultC {
@@ -41,5 +39,11 @@ class ClassDao {
         val retu = dao.classbyhorario(horario)
         return if (retu.result!!.isEmpty()) ResultC(null, MessageType.SUCCESS,retu.result) else ResultC(1, MessageType.EMPTY,retu.result)
     }
+
+    fun delete(klass: Classs){
+        dao.delete(klass)
+    }
+
+
 }
 
