@@ -31,6 +31,7 @@ class ClassDao {
 
     fun fetchAll(): ResultC {
         val retu= dao.fetch()
+
         return if (retu.result!!.isEmpty()) ResultC(null, MessageType.SUCCESS,retu.result) else ResultC(1, MessageType.EMPTY,retu.result)
     }
 

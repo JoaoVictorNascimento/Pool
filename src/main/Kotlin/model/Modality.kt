@@ -1,3 +1,3 @@
 package model
 
-data class Modality(val idModalidade: Int = 0, val disciplina: String)
+data class Modality(val id: Int = 0, val disciplina: String)

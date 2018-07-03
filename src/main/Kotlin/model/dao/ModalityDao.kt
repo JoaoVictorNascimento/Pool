@@ -1,48 +1,46 @@
 package model.dao
 
-import control.db.DbConn
+
+import control.db.JDBCModalityDAO
+import control.results.Error
+import control.results.ErrorType
+import control.results.MessageType
+import control.results.ResultM
 import model.Modality
 
 
 class ModalityDao {
-    var con = DbConn()
+    var dao = JDBCModalityDAO()
 
-    fun save(disciplina: String) { //
-        con.supercon()
+    fun save(disciplina: Modality):Error { //
 
-        if (findByName(disciplina).isEmpty()) {
-            con.supercon()
-            con.insertModality(Modality(disciplina = disciplina))
-            return println("Cadastrado com Sucesso")
+        if(dao.insert(disciplina) == (Error())){
+            //println("Success")
+            return Error()
+
         }
-        return println("ja existente")
+        return Error(1, ErrorType.FAILED)
+
     }
 
     fun update(modality: Modality){
-
-        con.supercon()
-        con.updateModality(modality)
-
+        dao.update(modality)
     }
 
     fun delete(modality: Modality){
-
-        con.supercon()
-        con.deleteModality(modality)
-
-
+        dao.delete(modality)
     }
 
-    fun findByName(name: String):MutableList<Modality>{//returns a list of persons in case they have the same name
+    fun ByName(name: String): ResultM {//returns a list of persons in case they have the same name
 
-        con.supercon()
-        val listModality: MutableList<Modality> = con.selectModalityByName(name)
-        return listModality
+        val retu: ResultM = dao.fetchByName(name)
+        return if (retu.result!!.isEmpty()) ResultM(null, MessageType.SUCCESS,retu.result) else ResultM(1, MessageType.EMPTY,retu.result)
     }
 
-    fun selectAll():MutableList<Modality>{
-        con.supercon()
-        return con.selectModality()
+    fun fetchAll(): ResultM {
+
+        val retu = dao.fetch()
+        return if (retu.result!!.isEmpty()) ResultM(null, MessageType.SUCCESS,retu.result) else ResultM(1, MessageType.EMPTY,retu.result)
     }
 
 }

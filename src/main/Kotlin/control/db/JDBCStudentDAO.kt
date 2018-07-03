@@ -245,24 +245,24 @@ class JDBCStudentDAO{
         val success: Int
         conn = DbConn().supercon()
         try{
-        val statement = conn!!.prepareStatement("INSERT INTO aluno" +
-                "(idAluno,Nome,Rg,Cpf,Aula_idAula,Aula_modalidade_idModalidade,Idade,Sexo,Endereco,Telefone," +
-                "Responsavel,DataNascimento,Idoso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ")
+            val statement = conn!!.prepareStatement("INSERT INTO aluno" +
+                    "(idAluno,Nome,Rg,Cpf,Aula_idAula,Aula_modalidade_idModalidade,Idade,Sexo,Endereco,Telefone," +
+                    "Responsavel,DataNascimento,Idoso) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ")
 
-        statement.setInt(1, student.id)
-        statement.setString(2, student.nome)
-        statement.setInt(3, student.rg)
-        statement.setInt(4, student.cpf)
-        statement.setInt(5, student.aula)
-        statement.setInt(6, student.modalidade)
-        statement.setInt(7, student.idade)
-        statement.setString(8, student.sexo)
-        statement.setString(9, student.endereco)
-        statement.setString(10, student.telefone)
-        statement.setString(11, student.responsavel)
-        statement.setDate(12, student.nascimento)
-        statement.setBoolean(13, student.idoso)
-        success = statement.executeUpdate()
+            statement.setInt(1, student.id)
+            statement.setString(2, student.nome)
+            statement.setInt(3, student.rg)
+            statement.setInt(4, student.cpf)
+            statement.setInt(5, student.aula)
+            statement.setInt(6, student.modalidade)
+            statement.setInt(7, student.idade)
+            statement.setString(8, student.sexo)
+            statement.setString(9, student.endereco)
+            statement.setString(10, student.telefone)
+            statement.setString(11, student.responsavel)
+            statement.setDate(12, student.nascimento)
+            statement.setBoolean(13, student.idoso)
+            success = statement.executeUpdate()
 
         }catch (e: SQLException){
             e.printStackTrace()
