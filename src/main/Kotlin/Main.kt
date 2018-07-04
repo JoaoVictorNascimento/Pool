@@ -103,6 +103,20 @@ fun main(args: Array<String>) {
 		freeMarkerEngine.render(ModelAndView(perr, "cadastro.ftl"))
 
 	}
+	Spark.post("/cadastro") { req, res ->	//pegar os dados inseridos na tela
+
+        val nome = req.queryParams("nome")
+        val idade = req.queryParams("idade")
+        val cpf = req.queryParams("cpf")
+        val endereco = req.queryParams("endereco")
+
+        val personita = Person(0, nome, 0, cpf.toInt())
+
+        personita.printero()
+	}
+	
+	
+	
 	Spark.get("/lista_de_presenca") { req, res ->
 		val perr: HashMap<String, Any> = hashMapOf()
 		perr.put("person", "OPA")
