@@ -24,6 +24,25 @@ fun configureFreeMarker(): FreeMarkerEngine {
 }
 
 fun main(args: Array<String>) {
+	
+	/*
+	// Exemplo de como cadastrar uma pessoa no banco
+	//sendo que o dao foi alterado os campos IDOSO E ID
+	val dateForm = SimpleDateFormat("MM-dd-yyyy")
+	var dataNascimento : Date = java.sql.Date(dateForm.parse("02-04-2015").getTime())
+
+	val novoEstudante = Student(0,null, null, null, null, "agnaldo",
+			123,
+			"1234".toInt(), 1, 1, 69, "indefinido",
+			"eumesmo", "010101", "eumesmo", dataNascimento, false)
+
+	val cadastradorEstudante = JDBCStudentDAO()
+
+	cadastradorEstudante.insert(novoEstudante)
+	*/	
+	
+	
+	
 	val personita = Person(10, "tobias", 11223, 124)
 	val personita2 = Person(14, "jack", 23, 2124)
 	val persons: HashMap<String, String> = hashMapOf()
