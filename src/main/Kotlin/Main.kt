@@ -57,10 +57,10 @@ fun main(args: Array<String>) {
 		val lis: MutableList<Person> = mutableListOf()
 		lis.add(personita)
 		lis.add(personita2)
-		//root["person"] = personita.name
+		root["person"] = personita.name
 		root.put("person", personita.name)
 		per.put("person", lis)
-		freeMarkerEngine.render(ModelAndView(per, "people.ftl"))
+		freeMarkerEngine.render(ModelAndView(root, "people.ftl"))	//era so passar o root aqui que funcionava
 	}
 
 	Spark.get("/create") { req, res ->
@@ -75,5 +75,58 @@ fun main(args: Array<String>) {
 		freeMarkerEngine.render(ModelAndView(perr, "opa.ftl"))
 
 	}
+	
+	//aqui o frnkalin mexeu, entao tem umas coisas que devem estar errado
+	//como aquele perr
+	Spark.get("/") { req, res ->
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("person", "OPA")
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "home.ftl"))
+
+	}
+
+	Spark.get("/cadastro") { req, res ->
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("person", "OPA")
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "cadastro.ftl"))
+
+	}
+	Spark.get("/lista_de_presenca") { req, res ->
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("person", "OPA")
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "lista_de_presenca.ftl"))
+
+	}
+	Spark.get("/aluno") { req, res ->
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("person", "OPA")
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "aluno.ftl"))
+
+	}
+	//até aqui o franklin mexeu	
 
 }
