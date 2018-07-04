@@ -6,5 +6,7 @@
 <br>
 <h3> <a class = "two" href = "/cadastro">Cadastro de alunos</a></h3>
 <h3> <a class = "two" href = "/lista_de_presenca">Lista de Presença</a></h3>
+<h3> <a class = "two" href = "/aluno">Aluno</a></h3>
+<h3> <a class = "two" href = "/people">People</a></h3> 
 </#macro>
 </html>
