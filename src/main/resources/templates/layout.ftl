@@ -121,10 +121,12 @@ tr:nth-child(even) {
 }
 
 .campo {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-bottom: 1em;
 }
 
 .campo label {
+
     margin-bottom: 0.2em;
     color: #666;
     display: block;
@@ -198,6 +200,21 @@ a.two:hover, a:active {
     background-color: black;
     color: white;
 }
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
 </style>
 
 <!DOCTYPE html>
@@ -212,7 +229,6 @@ a.two:hover, a:active {
                 <li><a href="/home">Home</a></li>
                 <li><a href="/aluno">Alunos</a></li>
                 <li><a href="/turmas">Turmas</a></li>
-                <li><a href="/boletos">Boletos</a></li>
             </ul>
         </nav></strong>
     </div>

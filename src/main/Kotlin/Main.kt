@@ -9,11 +9,12 @@ import spark.ModelAndView
 import spark.Spark
 import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
+import java.sql.Blob
 import java.sql.Date
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
-	val directory = "C:\\Users\\Thiago\\IdeaProjects\\thePool\\Pool\\src\\main\\resources\\bdstruct\\templates"
+	val directory = "C:\\Users\\Erica\\Downloads\\Pool-master\\src\\main\\resources\\templates"
 	val configuration = Configuration(Configuration.VERSION_2_3_23)
 
 	configuration.defaultEncoding = "UTF-8"
@@ -29,7 +30,7 @@ fun main(args: Array<String>) {
 
 	//persons["person"] = personita.name
 	persons.put(personita.name,personita.cpf.toString())
-	val p = PersonDao()
+	//val p = PersonDao()
 	val freeMarkerEngine = configureFreeMarker()
 	val date = Date.valueOf("1992-12-12")
 
@@ -75,34 +76,35 @@ fun main(args: Array<String>) {
 		freeMarkerEngine.render(ModelAndView(perr, "opa.ftl"))
 
 	}
-	
-	//aqui o frnkalin mexeu, entao tem umas coisas que devem estar errado
+
+    Spark.get("/") { req, res ->
+        val home: HashMap<String, Any> = hashMapOf()
+        freeMarkerEngine.render(ModelAndView(home, "home.ftl"))
+    }
+
+    Spark.get("/aluno") { req, res ->
+        val aluno: HashMap<String, Any> = hashMapOf()
+        aluno.put("students", sw.fetchAll().result!!)
+        freeMarkerEngine.render(ModelAndView(aluno, "aluno.ftl"))
+    }
+
+
+    //aqui o frnkalin mexeu, entao tem umas coisas que devem estar errado
 	//como aquele perr
-	Spark.get("/") { req, res ->
-		val perr: HashMap<String, Any> = hashMapOf()
-		perr.put("person", "OPA")
-		val params: MultiMap<String> = MultiMap()
-
-		println(req.body())
-		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
-
-
-		freeMarkerEngine.render(ModelAndView(perr, "home.ftl"))
-
-	}
 
 	Spark.get("/cadastro") { req, res ->
-		val perr: HashMap<String, Any> = hashMapOf()
-		perr.put("person", "OPA")
+		val aluno: HashMap<String, Any> = hashMapOf()
+		aluno.put("student","Student")
 		val params: MultiMap<String> = MultiMap()
 
 		println(req.body())
 		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
 
 
-		freeMarkerEngine.render(ModelAndView(perr, "cadastro.ftl"))
+		freeMarkerEngine.render(ModelAndView("student", "cadastro.ftl"))
 
 	}
+
 	Spark.post("/cadastro") { req, res ->	//pegar os dados inseridos na tela
 
         val nome = req.queryParams("nome")
@@ -110,37 +112,21 @@ fun main(args: Array<String>) {
         val cpf = req.queryParams("cpf")
         val endereco = req.queryParams("endereco")
 
-        val personita = Person(0, nome, 0, cpf.toInt())
+//        val personita = Person(0, nome, cpf.toInt(), )
 
         personita.printero()
 	}
 	
-	
-	
 	Spark.get("/lista_de_presenca") { req, res ->
 		val perr: HashMap<String, Any> = hashMapOf()
-		perr.put("person", "OPA")
+		perr.put("student", "Student")
 		val params: MultiMap<String> = MultiMap()
 
 		println(req.body())
 		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
-
 
 		freeMarkerEngine.render(ModelAndView(perr, "lista_de_presenca.ftl"))
 
 	}
-	Spark.get("/aluno") { req, res ->
-		val perr: HashMap<String, Any> = hashMapOf()
-		perr.put("person", "OPA")
-		val params: MultiMap<String> = MultiMap()
-
-		println(req.body())
-		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
-
-
-		freeMarkerEngine.render(ModelAndView(perr, "aluno.ftl"))
-
-	}
-	//até aqui o franklin mexeu	
-
+	//até aqui o franklin mexeu
 }
