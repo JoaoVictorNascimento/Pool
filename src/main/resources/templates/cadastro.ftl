@@ -8,7 +8,7 @@
  </head>
 
 <h1> Cadastro de Alunos</h1>
-    <form action = "#" method = "post">
+    <form name = "aluno" action = "add" method = "post">
 
         <div class="campo">
             <label for="nome">Nome</label>
@@ -16,21 +16,47 @@
         </div>
 
         <div class="campo">
+            <label for="rg">RG</label>
+            <input type="text" name="rg" style="width: 15em" maxlength="9">
+        </div>
+
+        <div class="campo">
             <label for="cpf">CPF</label>
-            <input type="text" name="cpf" size="9" maxlength="9"> - <input type="text" name="cpf2" size="2" maxlength="2">
+            <input type="text" name="cpf" style="width: 15em" maxlength="11">
+        </div>
+
+        <div class="campo">
+            <label for="data">Data de Nascimento</label>
+            <input type="date" id="data" name="data" min="1900-01-01">
         </div>
 
         <div class="campo">
             <label for="idade">Idade</label>
-            <input type="text" id="idade" name="idade" style="width: 5em" value="">
+            <input type="number" id="idade" name="idade" min="0" max="150" style="width: 6em" value="">
         </div>
 
         <div class="campo">
-            <label for="endereco">Endereço</label>
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" style="width: 20em" value="">
+        </div>
+
+        <div class="campo">
+            <label for="aula">Endereço</label>
             <input type="text" id="endereco" name="endereco" style="width: 40em" value="">
         </div>
 
+        <div class="campo">
+            <label for="modalidade">Modalidade</label>
+            <input type="text" id="modalidade" name="modalidade" style="width: 20em" value="">
+        </div>
+
+        <div class="campo">
+            <label for="aula">Aula</label>
+            <input type="text" id="aula" name="aula" style="width: 20em" value="">
+        </div>
+
         <br>
+
         <div class align="center">
             <input class="square_btn" type="submit" value="Cadastrar">
             <script>
@@ -39,7 +65,6 @@
                 });
             </script>
         </div>
-
 
     </form>
 
