@@ -83,9 +83,18 @@ fun main(args: Array<String>) {
     }
 
     Spark.get("/aluno") { req, res ->
-        val aluno: HashMap<String, Any> = hashMapOf()
-        aluno.put("students", sw.fetchAll().result!!)
-        freeMarkerEngine.render(ModelAndView(aluno, "aluno.ftl"))
+		val acessoBanco = JDBCPersonDAO()
+		val listaAlunos = acessoBanco.selectPerson()
+
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("persons", listaAlunos)
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "aluno.ftl"))
     }
 
 
