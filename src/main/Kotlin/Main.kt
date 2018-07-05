@@ -112,13 +112,19 @@ fun main(args: Array<String>) {
 		freeMarkerEngine.render(ModelAndView(perr, "opa.ftl"))
 
 	}
+	
+	Spark.get("/home") { req, res ->
+        	val home: HashMap<String, Any> = hashMapOf()
+        	freeMarkerEngine.render(ModelAndView(home, "home.ftl"))
+        }			    
+			   			   		    
+     
 
-    Spark.get("/") { req, res ->
-        val home: HashMap<String, Any> = hashMapOf()
-        freeMarkerEngine.render(ModelAndView(home, "home.ftl"))
-    }
-
-    Spark.get("/aluno") { req, res ->
+    	Spark.get("/"){req, res ->
+        	res.redirect("/home")
+    	}
+    
+	Spark.get("/aluno") { req, res ->
 		val acessoBanco = JDBCStudentDAO()
 		val listaStudents = acessoBanco.fetch().result
 
