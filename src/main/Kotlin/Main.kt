@@ -24,6 +24,25 @@ fun configureFreeMarker(): FreeMarkerEngine {
 }
 
 fun main(args: Array<String>) {
+	
+	/*
+	// Exemplo de como cadastrar uma pessoa no banco
+	//sendo que o dao foi alterado os campos IDOSO E ID
+	val dateForm = SimpleDateFormat("MM-dd-yyyy")
+	var dataNascimento : Date = java.sql.Date(dateForm.parse("02-04-2015").getTime())
+
+	val novoEstudante = Student(0,null, null, null, null, "agnaldo",
+			123,
+			"1234".toInt(), 1, 1, 69, "indefinido",
+			"eumesmo", "010101", "eumesmo", dataNascimento, false)
+
+	val cadastradorEstudante = JDBCStudentDAO()
+
+	cadastradorEstudante.insert(novoEstudante)
+	*/	
+	
+	
+	
 	val personita = Person(10, "tobias", 11223, 124)
 	val personita2 = Person(14, "jack", 23, 2124)
 	val persons: HashMap<String, String> = hashMapOf()
@@ -83,9 +102,18 @@ fun main(args: Array<String>) {
     }
 
     Spark.get("/aluno") { req, res ->
-        val aluno: HashMap<String, Any> = hashMapOf()
-        aluno.put("students", sw.fetchAll().result!!)
-        freeMarkerEngine.render(ModelAndView(aluno, "aluno.ftl"))
+		val acessoBanco = JDBCPersonDAO()
+		val listaAlunos = acessoBanco.selectPerson()
+
+		val perr: HashMap<String, Any> = hashMapOf()
+		perr.put("persons", listaAlunos)
+		val params: MultiMap<String> = MultiMap()
+
+		println(req.body())
+		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
+
+
+		freeMarkerEngine.render(ModelAndView(perr, "aluno.ftl"))
     }
 
 
@@ -111,10 +139,42 @@ fun main(args: Array<String>) {
         val idade = req.queryParams("idade")
         val cpf = req.queryParams("cpf")
         val endereco = req.queryParams("endereco")
+		val rg =  req.queryParams("rg")
+		val dataNascimento =  req.queryParams("data")
+		val telefone = req.queryParams("telefone")
+		val modalidade = req.queryParams("modalidade")
+		val aula =  req.queryParams("aula")
 
-//        val personita = Person(0, nome, cpf.toInt(), )
 
-        personita.printero()
+		val dateForm = SimpleDateFormat("MM-dd-yyyy")
+		var dataNascimentoFormatado : Date = java.sql.Date(dateForm.parse(dataNascimento).getTime())
+
+
+		val novoEstudante = Student(0,
+									null,
+									null,
+									null,
+									null,
+									nome,
+									rg.toInt(),
+									cpf.toInt(),
+									aula.toInt(),
+									modalidade.toInt(),
+									idade.toInt(),
+									"macho",
+									endereco,
+									telefone,
+									"eumesmo",
+									dataNascimentoFormatado,
+									false)
+
+		val cadastradorEstudante = JDBCStudentDAO()
+
+		cadastradorEstudante.insert(novoEstudante)
+				 
+		res.redirect("/home")				 
+
+        	println("")
 	}
 	
 	Spark.get("/lista_de_presenca") { req, res ->
