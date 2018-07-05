@@ -7,20 +7,20 @@
 
     <table>
         <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th>CPF</th>
-            <th>RG</th>
+            <!-- <th>Modalidade</th> -->
+            <th>Deletar</th>
+            <th>Atualizar</th>
 
         </tr>
-        <#list persons>
+        <#list students>
 
-            <#items as person>
+            <#items as student>
             <tr>
-                <td>${person.idPessoa}</td>
-                <td>${person.name}</td>
-                <td>${person.cpf}</td>
-                <td>${person.rg}</td>
+                <td>${student.nome}</td>
+                <!-- <td></td> -->
+                <td><input type="button" class="btn-delete" value="Deletar"></input></td>
+                <td><input type="button"  class="btn-atualizar" value="Atualizar"></input></td>
             </tr>
             </#items>
         </#list>
