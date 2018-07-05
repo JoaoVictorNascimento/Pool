@@ -1,4 +1,6 @@
 import control.db.JDBCClassDAO
+import control.db.JDBCPersonDAO
+import control.db.JDBCStudentDAO
 import freemarker.cache.FileTemplateLoader
 import freemarker.template.Configuration
 import model.dao.*
@@ -11,6 +13,7 @@ import spark.template.freemarker.FreeMarkerEngine
 import java.io.File
 import java.sql.Blob
 import java.sql.Date
+import java.text.SimpleDateFormat
 
 
 fun configureFreeMarker(): FreeMarkerEngine {
@@ -53,8 +56,7 @@ fun main(args: Array<String>) {
 	val freeMarkerEngine = configureFreeMarker()
 	val date = Date.valueOf("1992-12-12")
 
-	val stu = Student(nome = "dera",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 13,sexo = "masc",
-			endereco = "ecoaer",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
+	//val stu = Student(nome = "dera",rg = 123,cpf = 94,aula = 1,modalidade = 1,idade = 13,sexo = "masc", endereco = "ecoaer",telefone = "981276",responsavel = "Lord gaben",nascimento = date,idoso = false)
 
 	val s = StudentDao()
 	val sw= StudentDao()
@@ -154,49 +156,50 @@ fun main(args: Array<String>) {
 
 	}
 
-	Spark.post("/cadastro") { req, res ->	//pegar os dados inseridos na tela
-
-        val nome = req.queryParams("nome")
-        val idade = req.queryParams("idade")
-        val cpf = req.queryParams("cpf")
-        val endereco = req.queryParams("endereco")
-		val rg =  req.queryParams("rg")
-		val dataNascimento =  req.queryParams("data")
-		val telefone = req.queryParams("telefone")
-		val modalidade = req.queryParams("modalidade")
-		val aula =  req.queryParams("aula")
-
-
-		val dateForm = SimpleDateFormat("MM-dd-yyyy")
-		var dataNascimentoFormatado : Date = java.sql.Date(dateForm.parse(dataNascimento).getTime())
-
-
-		val novoEstudante = Student(0,
-									null,
-									null,
-									null,
-									null,
-									nome,
-									rg.toInt(),
-									cpf.toInt(),
-									aula.toInt(),
-									modalidade.toInt(),
-									idade.toInt(),
-									"macho",
-									endereco,
-									telefone,
-									"eumesmo",
-									dataNascimentoFormatado,
-									false)
-
-		val cadastradorEstudante = JDBCStudentDAO()
-
-		cadastradorEstudante.insert(novoEstudante)
-				 
-		res.redirect("/home")				 
-
-        	println("")
-	}
+//	Spark.post("/cadastro") { req, res ->	//pegar os dados inseridos na tela
+//
+//        val nome = req.queryParams("nome")
+//        val idade = req.queryParams("idade")
+//        val cpf = req.queryParams("cpf")
+//        val endereco = req.queryParams("endereco")
+//		val rg =  req.queryParams("rg")
+//		val dataNascimento =  req.queryParams("data")
+//		val telefone = req.queryParams("telefone")
+//		val modalidade = req.queryParams("modalidade")
+//		val aula =  req.queryParams("aula")
+//
+//
+//		val dateForm = SimpleDateFormat("MM-dd-yyyy")
+//		var dataNascimentoFormatado : Date = java.sql.Date(dateForm.parse(dataNascimento).getTime())
+//
+//
+//		val novoEstudante = Student(0,
+//									null,
+//									null,
+//									null,
+//									null,
+//									 nome.toString(),
+//				                     rg.toInt(),
+//				                     cpf.toInt(),
+//									 aula.toInt(),
+//									 modalidade.toInt(),
+//				                     idade.toInt(),
+//								     "MulheraoDaPohaToda",
+//				                     endereco.toString(),
+//									 telefone,
+//				                     "Me",
+//				                     dataNascimentoFormatado,
+//				                     false)
+//
+//
+//		val cadastradorEstudante = JDBCStudentDAO()
+//
+//		cadastradorEstudante.insert(novoEstudante)
+//
+//		res.redirect("/home")
+//
+//        	println("")
+//	}
 	
 	Spark.get("/lista_de_presenca") { req, res ->
 		val perr: HashMap<String, Any> = hashMapOf()
