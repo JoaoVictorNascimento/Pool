@@ -171,6 +171,8 @@ fun main(args: Array<String>) {
 		val cadastradorEstudante = JDBCStudentDAO()
 
 		cadastradorEstudante.insert(novoEstudante)
+				 
+		res.redirect("/home")				 
 
         	println("")
 	}
