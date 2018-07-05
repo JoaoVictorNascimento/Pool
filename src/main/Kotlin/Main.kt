@@ -139,10 +139,40 @@ fun main(args: Array<String>) {
         val idade = req.queryParams("idade")
         val cpf = req.queryParams("cpf")
         val endereco = req.queryParams("endereco")
+		val rg =  req.queryParams("rg")
+		val dataNascimento =  req.queryParams("data")
+		val telefone = req.queryParams("telefone")
+		val modalidade = req.queryParams("modalidade")
+		val aula =  req.queryParams("aula")
 
-//        val personita = Person(0, nome, cpf.toInt(), )
 
-        personita.printero()
+		val dateForm = SimpleDateFormat("MM-dd-yyyy")
+		var dataNascimentoFormatado : Date = java.sql.Date(dateForm.parse(dataNascimento).getTime())
+
+
+		val novoEstudante = Student(0,
+									null,
+									null,
+									null,
+									null,
+									nome,
+									rg.toInt(),
+									cpf.toInt(),
+									aula.toInt(),
+									modalidade.toInt(),
+									idade.toInt(),
+									"macho",
+									endereco,
+									telefone,
+									"eumesmo",
+									dataNascimentoFormatado,
+									false)
+
+		val cadastradorEstudante = JDBCStudentDAO()
+
+		cadastradorEstudante.insert(novoEstudante)
+
+        	println("")
 	}
 	
 	Spark.get("/lista_de_presenca") { req, res ->
