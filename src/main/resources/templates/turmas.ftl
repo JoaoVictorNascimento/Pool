@@ -19,7 +19,7 @@
             <tr>
                 <td>${turma.dia}</td>
                 <td>${turma.horario}</td>
-                <td>${turma.qntalunos}</td>
+                <td>${turma.qntAlunos}</td>
             </tr>
             </#items>
         </#list>
