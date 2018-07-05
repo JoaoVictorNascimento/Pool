@@ -11,7 +11,7 @@ class Filer{
 
     fun filero() : MutableList<String> {
         //inserir caminho real
-        val inputStream: InputStream = File("").inputStream()
+        val inputStream: InputStream = FileInputStream("src/main/resources/bdstruct/bdzito.txt")
         val lineList = mutableListOf<String>()
         inputStream.bufferedReader().useLines { lines -> lines.forEach { lineList.add(it)} }
        // lineList.forEach{println(">  $it")}
