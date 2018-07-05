@@ -77,8 +77,16 @@ fun main(args: Array<String>) {
 		val listaTurmas = verTurmas.fetch().result
 		parameters.put("turmas", listaTurmas!!)
 		freeMarkerEngine.render(ModelAndView(parameters, "turmas.ftl"))
-	}	
-
+	}
+	
+	Spark.get("/modalidades"){req, res ->
+		val parameters : HashMap<String, Any> = hashMapOf()
+		val verModalidades = JDBCModalityDAO()
+		val listaModalidades = verModalidades.fetch().result
+		parameters.put("modalidades", listaModalidades!!)
+		freeMarkerEngine.render(ModelAndView(parameters, "modalidades.ftl"))
+	}
+	
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()
 		val per: HashMap<String, Any> = hashMapOf()
