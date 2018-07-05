@@ -69,6 +69,15 @@ fun main(args: Array<String>) {
 
 	val x :MutableList<Person> = mutableListOf()
 	//println(x)
+	
+	
+	Spark.get("/turmas"){req, res ->
+		val parameters : HashMap<String, Any> = hashMapOf()
+		val verTurmas = JDBCClassDAO()
+		val listaTurmas = verTurmas.fetch().result
+		parameters.put("turmas", listaTurmas!!)
+		freeMarkerEngine.render(ModelAndView(parameters, "turmas.ftl"))
+	}	
 
 	Spark.get("/people") { req, res ->
 		val root: HashMap<String, String> = hashMapOf()
