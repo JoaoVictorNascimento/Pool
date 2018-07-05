@@ -43,12 +43,12 @@ class JDBCStudentDAO{
                 val aula: Int = res!!.getInt("Aula_idAula")
                 val modalida: Int = res!!.getInt("Aula_Modalidade_idModalidade")
                 val idade: Int = res!!.getInt("Idade")
-                val sexo: String = res!!.getString("Sexo")
-                val end: String = res!!.getString("Endereco")
-                val tell: String = res!!.getString("Telefone")
-                val resp: String = res!!.getString("Responsavel")
-                val nasc: Date = res!!.getDate("DataNascimento")
-                val idoso: Boolean = res!!.getBoolean("Idoso")
+                val sexo: String? = res!!.getString("Sexo")
+                val end: String? = res!!.getString("Endereco")
+                val tell: String? = res!!.getString("Telefone")
+                val resp: String? = res!!.getString("Responsavel")
+                val nasc: Date? = res!!.getDate("DataNascimento")
+                val idoso: Boolean = false //res!!.getBoolean("Idoso")
 
                 val pe = Student(id,null,null,null,null,name,rg,cpf,aula,
                         modalida,idade,sexo,end,tell,resp,nasc,idoso)
