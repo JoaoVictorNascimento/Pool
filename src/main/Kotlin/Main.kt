@@ -119,16 +119,14 @@ fun main(args: Array<String>) {
     }
 
     Spark.get("/aluno") { req, res ->
-		val acessoBanco = JDBCPersonDAO()
-		val listaAlunos = acessoBanco.selectPerson()
+		val acessoBanco = JDBCStudentDAO()
+		val listaStudents = acessoBanco.fetch().result
 
 		val perr: HashMap<String, Any> = hashMapOf()
-		perr.put("persons", listaAlunos)
-		val params: MultiMap<String> = MultiMap()
 
-		println(req.body())
-		println(UrlEncoded.decodeTo(req.body(), params, "UTF-8", -1))
-
+		if (listaStudents != null) {
+			perr.put("students", listaStudents)
+		}
 
 		freeMarkerEngine.render(ModelAndView(perr, "aluno.ftl"))
     }
